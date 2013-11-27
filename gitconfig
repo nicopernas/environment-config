@@ -1,0 +1,11 @@
+[core]
+	excludesfile = ~/.env-config/gitignore_global 
+
+[color]
+	ui = auto
+
+[color "status"]
+  added = green
+  changed = blue
+  untracked = magenta
+  deleted = red
