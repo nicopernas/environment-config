@@ -8,7 +8,6 @@ set expandtab "Convertir tabulaciones en espacios
 set tabstop =2 "Tamanio tabulacion
 set sm "Muestra llave/parentesis de comienzo al escribir el del final
 set sw =2 "Idem tabstop
-"set mouse =a "Activar uso de raton
 set number "Numerar filas
 set wrap "Evita el scroll horizontal con lineas muy largas
 set autoread " auto reloads the file if it's been changed from the outside
@@ -25,6 +24,7 @@ abbr #i #include
 abbr #d #define
 abbr ddperl #!/usr/bin/perl<CR><CR>use strict;<CR>use warnings;<CR>
 abbr ddbash #!/bin/bash
+abbr ddpython #!/usr/bin/python
 abbr ddtest void test () {<CR><CR>}
 
 " disable auto comment
@@ -45,7 +45,6 @@ nnoremap <Tab> :tabnext<CR>
 nnoremap <S-Tab> :tabprev<CR>
 " Autocomplete with Ctrl-Space like Eclipse :)
 inoremap <Nul> <C-n>
-
 
 " Display the cursor position on the last line of the screen or in the status
 " line of a window
