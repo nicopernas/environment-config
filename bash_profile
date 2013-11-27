@@ -21,7 +21,10 @@ alias llh='ls -lh'
 
 GIT_PS1_SHOWUPSTREAM="auto"
 
+# https://raw.github.com/git/git/master/contrib/completion/git-completion.bash
 source ~/.git-completion.bash
+
+# https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh
 source ~/.git-prompt.sh
 
 #export PS1='[\u \W]\[\033[32m\]$(__git_ps1)\[\033[0m\]# '
