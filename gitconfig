@@ -1,11 +1,30 @@
 [core]
 	excludesfile = ~/.env-config/gitignore_global 
+  pager = less -r
+	editor = vim
 
 [color]
-	ui = auto
+  diff = auto
+  branch = auto
+  interactive = false
+	ui = true
 
 [color "status"]
   added = green
   changed = blue
   untracked = magenta
   deleted = red
+
+[diff]
+  tool = beyondcompare
+  guitool = beyondcompare
+
+[difftool]
+  prompt = false
+
+[mergetool]
+  keepBackup = false
+  prompt = false
+
+[alias]
+	today = log --since=midnight --author='Nicolas Pernas Maradei' --oneline
