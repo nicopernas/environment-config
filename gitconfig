@@ -56,7 +56,7 @@
   unstage = reset HEAD --
   last = log -1 HEAD
   ci = commit
-  sci = ci -s
+  sci = commit -s
   co = checkout
   st = status
   lg = log --graph --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
