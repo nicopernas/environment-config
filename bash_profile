@@ -17,6 +17,7 @@ alias gs='git status'
 alias gd='git diff'
 alias ged='git difftool'
 alias ga='git add'
+alias gitconfig='vim -p ~/.gitconfig ~/.env-config/gitconfig'
 alias ll='ls -l'
 alias llh='ls -lh'
 
