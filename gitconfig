@@ -52,7 +52,7 @@
 
 [alias]
 	mylog = log --author='Nicolas Pernas Maradei' --oneline
-	today = mylog --since=midnight
+	today = log --author='Nicolas Pernas Maradei' --oneline --since=midnight
   unstage = reset HEAD --
   last = log -1 HEAD
   ci = commit
