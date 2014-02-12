@@ -29,5 +29,3 @@
 [alias]
 	today = log --since=midnight --author='Nicolas Pernas Maradei' --oneline
 
-[push]
-	default = upstream
