@@ -62,3 +62,5 @@
   lg = log --graph --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
   fork = checkout -b
   undo = checkout --
+  back = checkout -
+  diffc = diff --cached
