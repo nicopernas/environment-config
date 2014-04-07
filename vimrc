@@ -1,13 +1,13 @@
-call pathogen#incubate()
+call pathogen#infect('bundle/{}')
 call pathogen#helptags()
 
 set nocompatible " Activar funcionalidades extras del vim
 set vb " Desactivar pitido del sistema
 set autoindent " Activar autoindentado
 set expandtab "Convertir tabulaciones en espacios
-set tabstop =2 "Tamanio tabulacion
+set tabstop =4 "Tamanio tabulacion
 set sm "Muestra llave/parentesis de comienzo al escribir el del final
-set sw =2 "Idem tabstop
+set sw =4 "Idem tabstop
 set number "Numerar filas
 set wrap "Evita el scroll horizontal con lineas muy largas
 set autoread " auto reloads the file if it's been changed from the outside
