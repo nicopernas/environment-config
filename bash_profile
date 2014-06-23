@@ -32,10 +32,10 @@ alias llh='ls -lh'
 
 GIT_PS1_SHOWUPSTREAM="auto"
 
-# https://raw.github.com/git/git/master/contrib/completion/git-completion.bash
+# wget https://raw.github.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash
 source ~/.git-completion.bash
 
-# https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh
+# wget https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh ~/.git-prompt.sh
 source ~/.git-prompt.sh
 
 export PS1="[\u $C_WHITE\W$C_DEFAULT]\$(__git_ps1 '$C_GREEN(%s)$C_DEFAULT')# "
