@@ -1,7 +1,3 @@
-"Pathogen install:
-"mkdir -p ~/.vim/autoload ~/.vim/bundle; \
-"wget https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim -O ~/.vim/autoload/pathogen.vim
-
 call pathogen#infect('bundle/{}')
 call pathogen#helptags()
 
