@@ -26,9 +26,9 @@ alias gd='git diff'
 alias ged='git difftool'
 alias ga='git add'
 alias gitconfig='vim -p ~/.gitconfig ~/.env-config/gitconfig'
-alias ls='ls --color=auto'
 alias ll='ls -l'
 alias llh='ls -lh'
+alias fuck='sudo $(history -p \!\!)'
 
 GIT_PS1_SHOWUPSTREAM="auto"
 
