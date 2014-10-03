@@ -14,6 +14,7 @@ shopt -s checkwinsize
 C_DEFAULT="\[\033[m\]"
 C_WHITE="\[\033[1m\]"
 C_GREEN="\[\033[32m\]"
+C_RED="\[\033[31m\]"
 
 #aliases
 alias grep='grep --colour=auto'
@@ -29,10 +30,14 @@ alias gitconfig='vim -p ~/.gitconfig ~/.env-config/gitconfig'
 alias ll='ls -l'
 alias llh='ls -lh'
 alias fuck='sudo $(history -p \!\!)'
+alias xmod='chmod +x'
 
 GIT_PS1_SHOWUPSTREAM="auto"
 
+# curl -Sso ~/.git-completion.bash https://raw.github.com/git/git/master/contrib/completion/git-completion.bash
 source ~/.git-completion.bash
+
+# curl -Sso ~/.git-prompt.sh https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh
 source ~/.git-prompt.sh
 
 export PS1="[\u@\h $C_WHITE\W$C_DEFAULT]\$(__git_ps1 '$C_GREEN(%s)$C_DEFAULT')# "

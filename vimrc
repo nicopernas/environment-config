@@ -4,6 +4,7 @@ call pathogen#helptags()
 set nocompatible " Activar funcionalidades extras del vim
 set vb " Desactivar pitido del sistema
 set autoindent " Activar autoindentado
+set expandtab "Convertir tabulaciones en espacios
 set tabstop =4 "Tamanio tabulacion
 set sm "Muestra llave/parentesis de comienzo al escribir el del final
 set number "Numerar filas
@@ -37,9 +38,9 @@ map <F2>  :w<CR>
 map <F3>  :q!<CR>
 map <F4>  :set paste<CR>
 map <F5>  :set nopaste<CR>
-map <F10> :%s/\/\/\(.*\)/\/\*\1\*\//g<CR> 
+map <F10> :%s/\/\/\(.*\)/\/\*\1\*\//g<CR>
 map <F9>  :s/^\(.*\)$/<!-- \1 -->/<CR>
-nnoremap <Tab> :tabnext<CR> 
+nnoremap <Tab> :tabnext<CR>
 nnoremap <S-Tab> :tabprev<CR>
 " Autocomplete with Ctrl-Space like Eclipse :)
 inoremap <Nul> <C-n>
@@ -94,3 +95,6 @@ set autoread
 set novisualbell
 
 au BufRead,BufNewFile *.eyp set filetype=perl
+
+autocmd FileType * match Error /\s\+$/
+
