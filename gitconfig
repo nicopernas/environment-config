@@ -51,8 +51,8 @@
   prompt = false
 
 [alias]
-	mylog = log --author='Nicolas Pernas Maradei' --oneline
-	today = log --author='Nicolas Pernas Maradei' --oneline --since=midnight
+  mylog = log --author='Nicolás Pernas Maradei' --oneline
+  today = log --author='Nicolás Pernas Maradei' --oneline --since=midnight
   unstage = reset HEAD --
   last = log -1 HEAD
   ci = commit
@@ -64,3 +64,4 @@
   undo = checkout --
   back = checkout -
   diffc = diff --cached
+  pullr = pull --rebase
