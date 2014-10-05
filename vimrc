@@ -4,8 +4,8 @@ call pathogen#helptags()
 set nocompatible " Activar funcionalidades extras del vim
 set vb " Desactivar pitido del sistema
 set autoindent " Activar autoindentado
-set expandtab "Convertir tabulaciones en espacios
-set tabstop =4 "Tamanio tabulacion
+set tabstop=4 "Tamanio tabulacion
+set shiftwidth=4
 set sm "Muestra llave/parentesis de comienzo al escribir el del final
 set number "Numerar filas
 set wrap "Evita el scroll horizontal con lineas muy largas
