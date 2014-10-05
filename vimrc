@@ -47,7 +47,7 @@ inoremap <Nul> <C-n>
 
 " Display the cursor position on the last line of the screen or in the status
 " line of a window
-set ruler 
+set ruler
 
 " Highlight searches (use <C-L> to temporarily turn off highlighting; see the
 " mapping of <C-L> below)
