@@ -31,13 +31,11 @@ alias ll='ls -l'
 alias llh='ls -lh'
 alias fuck='sudo $(history -p \!\!)'
 alias xmod='chmod +x'
+alias rand_pass='openssl rand -base64 20'
 
 GIT_PS1_SHOWUPSTREAM="auto"
 
-# curl -Sso ~/.git-completion.bash https://raw.github.com/git/git/master/contrib/completion/git-completion.bash
 source ~/.git-completion.bash
-
-# curl -Sso ~/.git-prompt.sh https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh
 source ~/.git-prompt.sh
 
 export PS1="[\u@\h $C_WHITE\W$C_DEFAULT]\$(__git_ps1 '$C_GREEN(%s)$C_DEFAULT')# "
