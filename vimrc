@@ -96,5 +96,8 @@ set novisualbell
 
 au BufRead,BufNewFile *.eyp set filetype=perl
 
+" Highlight trailing white spaces
 autocmd FileType * match Error /\s\+$/
 
+" Remove trailing white spaces on save
+autocmd BufWritePre * :%s/\s\+$//e
