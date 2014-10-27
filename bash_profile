@@ -4,6 +4,7 @@ export HISTFILESIZE=20000
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
+HISTTIMEFORMAT="%d/%m/%y %T "
 # append to the history file, don't overwrite it
 shopt -s histappend
 # check the window size after each command and, if necessary,
