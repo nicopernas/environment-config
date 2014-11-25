@@ -5,7 +5,8 @@ set -e
 
 DIR=`pwd`
 cd ~
-ln -fs .env-config/bash_profile .profile
+
+echo "source ~/.env-config/bash_profile" >> ~/.bash_profile
 ln -fs .env-config/inputrc .inputrc
 # git prompt tools
 wget https://raw.github.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash
@@ -23,7 +24,7 @@ cd bundle
 # install additional VIM plugins
 git clone https://github.com/embear/vim-localvimrc.git
 
-source ~/.profile
+source ~/.bash_profile
 
 echo "
 [user]
