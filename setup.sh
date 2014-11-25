@@ -5,18 +5,18 @@ set -e
 
 DIR=`pwd`
 cd ~
-ln -s .env-config/bash_profile .profile
-ln -s .env-config/inputrc .inputrc
+ln -fs .env-config/bash_profile .profile
+ln -fs .env-config/inputrc .inputrc
 # git prompt tools
 wget https://raw.github.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash
 wget https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh -O ~/.git-prompt.sh
-ln -s .env-config/vimrc .vimrc
+ln -fs .env-config/vimrc .vimrc
 
 # vim pathogen install
 mkdir -p ~/.vim
 cd ~/.vim
 git clone https://github.com/tpope/vim-pathogen
-ln -s vim-pathogen/autoload autoload
+ln -fs vim-pathogen/autoload autoload
 mkdir -p ~/.vim/bundle
 cd bundle
 
