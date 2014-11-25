@@ -31,7 +31,7 @@ echo "
 [include]
 	path = ~/.env-config/gitconfig
 [diff]
-#	external = /home/nico/.env-config/external_diff.sh
+#	external = ~/.env-config/external_diff.sh
 " >> ~/.gitconfig
 
 cd $DIR
