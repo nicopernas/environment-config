@@ -27,12 +27,14 @@ alias gs='git status'
 alias gd='git diff'
 alias ged='git difftool'
 alias ga='git add'
+alias gu='git undo'
 alias gitconfig='vim -p ~/.gitconfig ~/.env-config/gitconfig'
 alias ll='ls -l'
 alias llh='ls -lh'
 alias fuck='sudo $(history -p \!\!)'
 alias xmod='chmod +x'
 alias rand_pass='openssl rand -base64 20'
+alias mkae=make
 
 GIT_PS1_SHOWUPSTREAM="auto"
 
