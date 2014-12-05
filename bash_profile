@@ -35,6 +35,7 @@ alias fuck='sudo $(history -p \!\!)'
 alias xmod='chmod +x'
 alias rand_pass='openssl rand -base64 20'
 alias mkae=make
+alias untar='tar xvf'
 
 GIT_PS1_SHOWUPSTREAM="auto"
 
