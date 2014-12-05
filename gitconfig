@@ -1,5 +1,5 @@
 [core]
-  excludesfile = ~/.env-config/gitignore_global 
+  excludesfile = ~/.env-config/gitignore_global
   pager = less -FRSX
   editor = vim -f
   autocrlf = input
@@ -65,3 +65,4 @@
   back = checkout -
   diffc = diff --cached
   pullr = pull --rebase
+  diffw = diff --color-words
