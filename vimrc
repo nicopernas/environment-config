@@ -1,5 +1,6 @@
-call pathogen#infect('bundle/{}')
-call pathogen#helptags()
+execute pathogen#infect()
+" To install new plugins just run:
+" cd ~/.vim/bundle && git clone git://github.com/plugin.git
 
 set nocompatible " Activar funcionalidades extras del vim
 set vb " Desactivar pitido del sistema
@@ -33,15 +34,12 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 set history=500
 
 "--- Teclas de funciones ---
-map <F1>  :q<CR>
-map <F2>  :w<CR>
-map <F3>  :q!<CR>
-map <F4>  :set paste<CR>
-map <F5>  :set nopaste<CR>
-map <F10> :%s/\/\/\(.*\)/\/\*\1\*\//g<CR>
-map <F9>  :s/^\(.*\)$/<!-- \1 -->/<CR>
+map <F1>  :set paste<CR>
+map <F2>  :set nopaste<CR>
 nnoremap <Tab> :tabnext<CR>
 nnoremap <S-Tab> :tabprev<CR>
+nnoremap <F3> <C-]>
+
 " Autocomplete with Ctrl-Space like Eclipse :)
 inoremap <Nul> <C-n>
 
@@ -101,3 +99,9 @@ autocmd FileType * match Error /\s\+$/
 
 " Remove trailing white spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
+
+function s:LinuxKeywords()
+    syn keyword cOperator likely unlikely
+    syn keyword cType u8 u16 u32 u64 s8 s16 s32 s64
+endfunction
+autocmd FileType c,cpp call s:LinuxKeywords()
