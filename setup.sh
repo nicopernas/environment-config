@@ -6,6 +6,7 @@ set -e
 DIR=`pwd`
 cd ~
 ln -s .env-config/bash_profile .profile
+ln -s .env-config/inputrc .inputrc
 # git prompt tools
 wget https://raw.github.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash
 wget https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh -O ~/.git-prompt.sh
