@@ -1,3 +1,8 @@
+# move in history using arrows
 "\e[A": history-search-backward
 "\e[B": history-search-forward
+
+# move in history using pag-up/pag-down
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward
 
