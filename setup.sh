@@ -24,12 +24,15 @@ git clone https://github.com/embear/vim-localvimrc.git
 
 source ~/.profile
 
-echo "[include]
-        path = ~/.env-config/gitconfig
+echo "
+[user]
+#	email = nicopernas@gmail.com
+[include]
+	path = ~/.env-config/gitconfig
 [diff]
-#       external = /home/nico/.env-config/external_diff.sh
-[merge]
-        tool = meld" >> ~/.gitconfig
+#	external = /home/nico/.env-config/external_diff.sh
+" >> ~/.gitconfig
+
 cd $DIR
 
 # Turn off automatic exit on failure.

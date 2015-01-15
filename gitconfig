@@ -5,6 +5,9 @@
   autocrlf = input
   whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 
+[user]
+  name = Nicolás Pernas Maradei
+
 [github]
   user = nicopernas
 
@@ -40,8 +43,11 @@
   autocorrect = 1
 
 [diff]
-  tool = beyondcompare
-  guitool = beyondcompare
+  tool = meld
+  guitool = meld
+
+[merge]
+  tool = meld
 
 [difftool]
   prompt = false
