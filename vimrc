@@ -11,6 +11,7 @@ set sm "Muestra llave/parentesis de comienzo al escribir el del final
 set number "Numerar filas
 set wrap "Evita el scroll horizontal con lineas muy largas
 set autoread " auto reloads the file if it's been changed from the outside
+set textwidth=80 " add a new line after 80  chars automatically
 
 " Codificacion
 set encoding=utf-8
