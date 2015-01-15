@@ -21,8 +21,6 @@ C_RED="\[\033[31m\]"
 alias grep='grep --colour=auto'
 alias h=history
 alias hgrep='history|grep'
-alias cgrep='grep --include="*.[ch]"'
-alias ack=ack-grep
 alias gs='git status'
 alias gd='git diff'
 alias ged='git difftool'
@@ -36,6 +34,11 @@ alias xmod='chmod +x'
 alias rand_pass='openssl rand -base64 20'
 alias mkae=make
 alias untar='tar xvf'
+
+# functions
+function cgrep {
+	grep --include="*.[ch]" -rn $@ *
+}
 
 GIT_PS1_SHOWUPSTREAM="auto"
 
