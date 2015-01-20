@@ -37,7 +37,7 @@ alias untar='tar xvf'
 
 # functions
 function cgrep {
-	grep --include="*.[ch]" -rn $@ *
+	grep --include="*.[ch]" -rn "$1" "${@:2}" *
 }
 
 GIT_PS1_SHOWUPSTREAM="auto"
