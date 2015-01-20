@@ -6,7 +6,9 @@ set -e
 function install_all {
 	echo "Installing..."
 
-	sed -i '1isource ~/.env-config/bash_profile' ~/.bash_profile
+	sed -i '1isource ~/.env-config/bash_profile' ~/.bash_profile || \
+	echo "source ~/.env-config/bash_profile" > ~/.bash_profile
+
 	ln -fs .env-config/inputrc .inputrc
 	# git prompt tools
 	wget https://raw.github.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash
@@ -33,7 +35,7 @@ function install_all {
 	path = ~/.env-config/gitconfig
 [diff]
 #	external = ~/.env-config/external_diff.sh
-	">> ~/.gitconfig
+" >> ~/.gitconfig
 
 }
 
