@@ -40,6 +40,16 @@ function cgrep {
 	grep --include="*.[ch]" -rn "$1" "${@:2}" *
 }
 
+function known_hosts_update {
+	line_number=$1
+	if [[ "$line_number" =~ ^[0-9]+$ ]]; then
+		sed -i "${line_number}d" ~/.ssh/known_hosts
+	else
+		echo "Invalid line number: '$line_number'"
+		echo "Usage: $FUNCNAME line_number"
+	fi
+}
+
 GIT_PS1_SHOWUPSTREAM="auto"
 
 source ~/.git-completion.bash
