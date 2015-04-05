@@ -65,7 +65,7 @@
   sci = commit -s
   co = checkout
   st = status
-  lg = log --graph --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
+  lg = log --graph --pretty=format:'%C(yellow)%h%Cred%d%Creset %s %C(white)%C(cyan)%an%Creset, %C(green)%ar%Creset'
   fork = checkout -b
   undo = checkout --
   back = checkout -
