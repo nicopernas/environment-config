@@ -12,6 +12,7 @@ set number "Numerar filas
 set wrap "Evita el scroll horizontal con lineas muy largas
 set autoread " auto reloads the file if it's been changed from the outside
 set textwidth=80 " add a new line after 80  chars automatically
+set ls=2 " Display file name
 
 " Codificacion
 set encoding=utf-8
