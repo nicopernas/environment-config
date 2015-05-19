@@ -37,7 +37,11 @@ alias untar='tar xvf'
 
 # functions
 function cgrep {
-	grep --include="*.[ch]" -rn "$1" "${@:2}" *
+	grep --include="*.[ch]" -rn "$1" "${@:2}"
+}
+
+function lgrep {
+	grep --include="*.lua" -rn "$1" "${@:2}"
 }
 
 function known_hosts_update {
