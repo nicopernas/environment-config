@@ -54,6 +54,33 @@ function known_hosts_update {
 	fi
 }
 
+function start_vm {
+	local vm=$1
+	if [[ "$vm" == "" ]]; then
+		echo "VM name missing"
+		return 1
+	fi
+	VBoxHeadless -s $vm &
+}
+
+function stop_vm {
+	local vm=$1
+	if [[ "$vm" == "" ]]; then
+		echo "VM name missing"
+		return 1
+	fi
+	VBoxManage controlvm $vm savestate
+}
+
+function kill_vm {
+	local vm=$1
+	if [[ "$vm" == "" ]]; then
+		echo "VM name missing"
+		return 1
+	fi
+	VBoxManage controlvm $vm poweroff
+}
+
 GIT_PS1_SHOWUPSTREAM="auto"
 
 source ~/.git-completion.bash
