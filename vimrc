@@ -95,6 +95,7 @@ set autoread
 set novisualbell
 
 au BufRead,BufNewFile *.eyp set filetype=perl
+au BufRead,BufNewFile *.lds set filetype=ld
 
 " Highlight trailing white spaces
 autocmd FileType * match Error /\s\+$/
