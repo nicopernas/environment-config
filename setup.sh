@@ -1,13 +1,13 @@
-#!/bin/bash
-
-# Any subsequent commands which fail will cause the shell script to exit immediately
-set -e
+#!/bin/bash -e
 
 function install_all {
 	echo "Installing..."
 
-	sed -i '1isource ~/.env-config/bash_profile' ~/.bash_profile || \
-	echo "source ~/.env-config/bash_profile" > ~/.bash_profile
+	echo 'source ~/.env-config/bash_profile' >> ~/.bash_profile
+	if [ -f '~/.bashrc' ]; then
+		echo 'source ~/.env-config/bash_profile' >> ~/.bashrc
+	fi
+
 
 	ln -fs .env-config/inputrc .inputrc
 	# git prompt tools
@@ -66,5 +66,3 @@ fi
 cd $DIR
 
 echo "Done!"
-# Turn off automatic exit on failure.
-set +e
