@@ -4,10 +4,7 @@ function install_all {
 	echo "Installing..."
 
 	echo 'source ~/.env-config/bash_profile' >> ~/.bash_profile
-	if [ -f '~/.bashrc' ]; then
-		echo 'source ~/.env-config/bash_profile' >> ~/.bashrc
-	fi
-
+	echo 'source ~/.env-config/bash_profile' >> ~/.bashrc
 
 	ln -fs .env-config/inputrc .inputrc
 	# git prompt tools
@@ -42,7 +39,7 @@ function install_all {
 function uninstall_all {
 	echo "Uninstalling..."
 
-	sed -i '/.env-config/d' .bash_profile
+	sed -i '/.env-config/d' .bash_profile .bashrc
 	rm .inputrc
 	rm .git-completion.bash
 	rm .git-prompt.sh
