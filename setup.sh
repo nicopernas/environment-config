@@ -25,15 +25,19 @@ function install_all {
 
 	source ~/.bash_profile
 
-	echo "
-[user]
-#	email = nicopernas@gmail.com
-[include]
-	path = ~/.env-config/gitconfig
-[diff]
-#	external = ~/.env-config/external_diff.sh
-" >> ~/.gitconfig
+	sed 's/@@@ //' >> ~/.gitconfig <<-EOF
+	@@@ [user]
+	@@@ #	email = nicopernas@gmail.com
+	@@@ [include]
+	@@@ 	path = ~/.env-config/gitconfig
+	@@@ [diff]
+	@@@ #	external = ~/.env-config/external_diff.sh
+	EOF
 
+	sudofile=/etc/sudoers.d/$USER
+	sudo touch $sudofile
+	echo "$USER ALL=(ALL) NOPASSWD: ALL" | tee -a $sudofile
+	sudo chmod 0440 $sudofile
 }
 
 function uninstall_all {

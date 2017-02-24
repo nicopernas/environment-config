@@ -19,6 +19,8 @@ C_RED="\[\033[31m\]"
 
 #aliases
 alias grep='grep --colour=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 alias h=history
 alias hgrep='history|grep'
 alias gs='git status'
@@ -52,33 +54,6 @@ function known_hosts_update {
 		echo "Invalid line number: '$line_number'"
 		echo "Usage: $FUNCNAME line_number"
 	fi
-}
-
-function start_vm {
-	local vm=$1
-	if [[ "$vm" == "" ]]; then
-		echo "VM name missing"
-		return 1
-	fi
-	VBoxHeadless -s $vm &
-}
-
-function stop_vm {
-	local vm=$1
-	if [[ "$vm" == "" ]]; then
-		echo "VM name missing"
-		return 1
-	fi
-	VBoxManage controlvm $vm savestate
-}
-
-function kill_vm {
-	local vm=$1
-	if [[ "$vm" == "" ]]; then
-		echo "VM name missing"
-		return 1
-	fi
-	VBoxManage controlvm $vm poweroff
 }
 
 GIT_PS1_SHOWUPSTREAM="auto"

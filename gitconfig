@@ -73,3 +73,4 @@
   pullr = pull --rebase
   diffw = diff --color-words
   stashed = stash list --pretty=format:'%gd: %Cred%h%Creset %Cgreen[%ar]%Creset %s'
+  save4later = stash save
