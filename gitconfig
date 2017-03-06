@@ -1,11 +1,13 @@
+# git global config
+
 [core]
-  excludesfile = ~/.env-config/gitignore_global
   pager = less -FRSX
   editor = vim -f
   autocrlf = input
   whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 
 [user]
+  # email = nicopernas@gmail.com
   name = Nicolás Pernas Maradei
 
 [github]

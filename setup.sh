@@ -3,14 +3,19 @@
 function install_all {
 	echo "Installing..."
 
-	echo 'source ~/.env-config/bash_profile' >> ~/.bash_profile
-	echo 'source ~/.env-config/bash_profile' >> ~/.bashrc
+	echo "source $DIR/bash_profile #dotfiles" >> ~/.bash_profile
+	echo "source $DIR/bash_profile #dotfiles" >> ~/.bashrc
+	echo "export ENV_CONFIG=$DIR #dotfiles" >> ~/.bash_profile
+	echo "export ENV_CONFIG=$DIR #dotfiles" >> ~/.bashrc
 
-	ln -fs .env-config/inputrc .inputrc
+	ln -fs $DIR/inputrc ~/.inputrc
+
 	# git prompt tools
-	wget https://raw.github.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash
-	wget https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh -O ~/.git-prompt.sh
-	ln -fs .env-config/vimrc .vimrc
+	url='https://raw.github.com/git/git/master/contrib/completion'
+	wget "$url/git-completion.bash" -O ~/.git-completion.bash
+	wget "$url/git-prompt.sh" -O ~/.git-prompt.sh
+
+	ln -fs $DIR/vimrc ~/.vimrc
 
 	# vim pathogen install
 	mkdir -p ~/.vim
@@ -26,36 +31,36 @@ function install_all {
 	source ~/.bash_profile
 
 	sed 's/@@@ //' >> ~/.gitconfig <<-EOF
-	@@@ [user]
-	@@@ #	email = nicopernas@gmail.com
 	@@@ [include]
-	@@@ 	path = ~/.env-config/gitconfig
+	@@@ 	path = $DIR/gitconfig
 	@@@ [diff]
-	@@@ #	external = ~/.env-config/external_diff.sh
+	@@@ #	external = $DIR/external_diff.sh
+	@@@ [core]
+	@@@     excludesfile = $DIR/gitignore_global
 	EOF
 
 	sudofile=/etc/sudoers.d/$USER
 	sudo touch $sudofile
-	echo "$USER ALL=(ALL) NOPASSWD: ALL" | tee -a $sudofile
+	echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee -a $sudofile
 	sudo chmod 0440 $sudofile
 }
 
 function uninstall_all {
 	echo "Uninstalling..."
 
-	sed -i '/.env-config/d' .bash_profile .bashrc
-	rm .inputrc
-	rm .git-completion.bash
-	rm .git-prompt.sh
-	rm .gitconfig
-	rm .vimrc
-	rm -rf .vim/vim-pathogen
-	rm -rf .vim/autoload
-	rm -rf .vim/bundle
+	sed -i '/#dotfiles/d' ~/.bash_profile ~/.bashrc
+	rm ~/.inputrc
+	rm ~/.git-completion.bash
+	rm ~/.git-prompt.sh
+	rm ~/.gitconfig
+	rm ~/.vimrc
+	rm -rf ~/.vim/vim-pathogen
+	rm -rf ~/.vim/autoload
+	rm -rf ~/.vim/bundle
+	sudo rm /etc/sudoers.d/$USER
 }
 
-DIR=`pwd`
-cd ~
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 if [[ "$1" == "uninstall" ]]
 then
