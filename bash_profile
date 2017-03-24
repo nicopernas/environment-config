@@ -17,6 +17,12 @@ C_WHITE="\[\033[1m\]"
 C_GREEN="\[\033[32m\]"
 C_RED="\[\033[31m\]"
 
+if [ `uname` == 'Darwin' ]; then
+	export CLICOLOR=1 # enable colored ls output
+else
+	alias ls='ls --color'
+fi
+
 #aliases
 alias grep='grep --colour=auto'
 alias fgrep='fgrep --color=auto'
@@ -62,5 +68,4 @@ source ~/.git-completion.bash
 source ~/.git-prompt.sh
 
 export PS1="[\u@\h $C_WHITE\W$C_DEFAULT]\$(__git_ps1 '$C_GREEN(%s)$C_DEFAULT')# "
-
 
