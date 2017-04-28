@@ -26,7 +26,7 @@ syntax enable " Activar sintaxis: coloreado, etc
 abbr #i #include
 abbr #d #define
 abbr ddperl #!/usr/bin/perl<CR><CR>use strict;<CR>use warnings;<CR>
-abbr ddbash #!/bin/bash
+abbr ddbash #!/bin/bash<CR>set -e<CR>set -u<CR>
 abbr ddpython #!/usr/bin/python
 abbr ddtest void test () {<CR><CR>}
 
