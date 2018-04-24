@@ -35,6 +35,7 @@ alias ged='git difftool'
 alias ga='git add'
 alias gu='git undo'
 alias grb='git rbi'
+alias gl='git lg'
 alias gitconfig='vim -p ~/.gitconfig "$ENV_CONFIG"/gitconfig'
 alias ll='ls -l'
 alias llh='ls -lh'
@@ -43,6 +44,7 @@ alias xmod='chmod +x'
 alias rand_pass='openssl rand -base64 20'
 alias mkae=make
 alias untar='tar xvf'
+alias ..='cd ..'
 
 # functions
 function cgrep {
