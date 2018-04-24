@@ -63,11 +63,11 @@
   today = log --author='Nicolás Pernas Maradei' --oneline --since=midnight
   unstage = reset HEAD --
   last = log -1 HEAD
-  ci = commit
-  sci = commit -s
+  ci = commit -v
+  sci = commit -s -v
   co = checkout
   st = status
-  lg = log --graph --pretty=format:'%C(yellow)%h%Cred%d%Creset %s %C(white)%C(cyan)%an%Creset, %C(green)%ar%Creset'
+  lg = log --graph --pretty=format:'%C(yellow)%h%Cred%d%Creset %s %C(white)%C(cyan)%an <%ae>%Creset, %C(green)%ar%Creset'
   fork = checkout -b
   undo = checkout --
   back = checkout -
