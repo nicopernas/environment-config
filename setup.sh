@@ -27,6 +27,7 @@ function install_all {
 
 	# install additional VIM plugins
 	git clone https://github.com/embear/vim-localvimrc.git
+	git clone --depth=1 https://github.com/vim-syntastic/syntastic.git
 
 	source ~/.bash_profile
 
@@ -36,7 +37,7 @@ function install_all {
 	@@@ [diff]
 	@@@ #	external = $DIR/external_diff.sh
 	@@@ [core]
-	@@@     excludesfile = $DIR/gitignore_global
+	@@@	 excludesfile = $DIR/gitignore_global
 	EOF
 
 	sudofile=/etc/sudoers.d/$USER
