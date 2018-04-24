@@ -1,12 +1,12 @@
 execute pathogen#infect()
+execute pathogen#helptags()
+
 " To install new plugins just run:
 " cd ~/.vim/bundle && git clone git://github.com/plugin.git
 
 set nocompatible " Activar funcionalidades extras del vim
 set vb " Desactivar pitido del sistema
 set autoindent " Activar autoindentado
-set tabstop=4 "Tamanio tabulacion
-set shiftwidth=4
 set sm "Muestra llave/parentesis de comienzo al escribir el del final
 set number "Numerar filas
 "set wrap "Evita el scroll horizontal con lineas muy largas
@@ -14,6 +14,10 @@ set autoread " auto reloads the file if it's been changed from the outside
 "set textwidth=80 " add a new line after 80  chars automatically
 set ls=2 " Display file name
 set tabpagemax=100
+
+filetype plugin indent on
+" On pressing tab, insert 4 spaces
+set tabstop=4 shiftwidth=4 expandtab
 
 " Codificacion
 set encoding=utf-8
@@ -26,7 +30,7 @@ syntax enable " Activar sintaxis: coloreado, etc
 abbr #i #include
 abbr #d #define
 abbr ddperl #!/usr/bin/perl<CR><CR>use strict;<CR>use warnings;<CR>
-abbr ddbash #!/bin/bash<CR>set -e<CR>set -u<CR>
+abbr ddbash #!/bin/bash<CR>set -e -u<CR>
 abbr ddpython #!/usr/bin/python
 abbr ddtest void test () {<CR><CR>}
 
@@ -36,9 +40,13 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " Historial de lineas
 set history=500
 
-"--- Teclas de funciones ---
-map <F1>  :set paste<CR>
-map <F2>  :set nopaste<CR>
+" Ctrl-b toggles paste mode. Works in normal mode.
+map <C-p>  :set paste! paste?<CR>
+
+" Ctrl-e toggles wrap mode. Works both normal and insert mode.
+map <C-e> :set wrap! wrap?<CR>
+imap <C-e> <C-O><C-e>
+
 nnoremap <Tab> :tabnext<CR>
 nnoremap <S-Tab> :tabprev<CR>
 nnoremap <F3> <C-]>
@@ -111,3 +119,15 @@ endfunction
 autocmd FileType c,cpp call s:LinuxKeywords()
 
 set mouse=a
+
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_sh_shellcheck_args = "-x"
+nnoremap <F9> :SyntasticToggleMode<CR>
