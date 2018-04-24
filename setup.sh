@@ -9,6 +9,7 @@ function install_all {
     echo "export ENV_CONFIG=$DIR #dotfiles" >> ~/.bashrc
 
     ln -fs $DIR/inputrc ~/.inputrc
+    ln -fs $DIR/tmux.conf ~/.tmux.conf
 
     # git prompt tools
     url='https://raw.github.com/git/git/master/contrib/completion'
@@ -51,6 +52,7 @@ function uninstall_all {
 
     sed -i '/#dotfiles/d' ~/.bash_profile ~/.bashrc
     rm ~/.inputrc
+    rm ~/.tmux.conf
     rm ~/.git-completion.bash
     rm ~/.git-prompt.sh
     rm ~/.gitconfig
