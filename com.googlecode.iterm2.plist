@@ -16,6 +16,8 @@
 	<integer>0</integer>
 	<key>AppleSmoothFixedFontsSizeThreshold</key>
 	<integer>1</integer>
+	<key>AppleWindowTabbingMode</key>
+	<string>manual</string>
 	<key>Default Bookmark Guid</key>
 	<string>4B00E916-C6E6-4B38-AF04-E5BBE831FD63</string>
 	<key>GlobalKeyMap</key>
@@ -197,20 +199,22 @@
 	<true/>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1428 386 445 77 0 0 3440 1418 </string>
+	<key>NSWindow Frame ProfilesPanel</key>
+	<string>159 1006 735 382 0 0 3440 1418 </string>
 	<key>NSWindow Frame SUAutomaticUpdateAlert</key>
-	<string>332 454 616 174 0 0 1280 778 </string>
+	<string>1412 934 616 174 0 0 3440 1418 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>1410 770 620 392 0 0 3440 1418 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
-	<string>269 143 606 469 0 0 3440 1418 </string>
+	<string>64 47 606 469 0 0 1280 778 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>603 650 796 473 0 0 3440 1418 </string>
+	<string>601 538 796 486 0 0 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 31 3434 1387 0 0 3440 1418 </string>
+	<string>0 0 1280 777 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>1723 4 1714 1414 0 0 3440 1418 </string>
+	<string>3 0 634 778 0 0 1280 800 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>1723 4 1714 1414 0 0 3440 1418 </string>
+	<string>3 0 634 778 0 0 1280 778 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
 	<string>0 25 1280 752 0 0 1280 777 </string>
 	<key>NeverWarnAboutShortLivedSessions_4B00E916-C6E6-4B38-AF04-E5BBE831FD63</key>
@@ -868,6 +872,8 @@
 			<string>/Users/npernas</string>
 		</dict>
 	</array>
+	<key>NoSyncHaveRequestedFullDiskAccess</key>
+	<true/>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
@@ -940,9 +946,11 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-04-16T08:11:26Z</date>
+	<date>2019-05-31T13:02:33Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
+	<key>ShowFullScreenTabBar</key>
+	<true/>
 	<key>ShowNewOutputIndicator</key>
 	<true/>
 	<key>TabViewType</key>
@@ -958,7 +966,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.1.1</string>
+	<string>3.2.7</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
