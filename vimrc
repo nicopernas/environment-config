@@ -20,7 +20,7 @@ filetype plugin indent on
 set tabstop=4 shiftwidth=4 expandtab
 
 " Codificacion
-set encoding=utf-8
+set termencoding=utf-8 encoding=utf-8
 
 " Visualizacion
 "set background = dark
@@ -29,9 +29,9 @@ syntax enable " Activar sintaxis: coloreado, etc
 "Abreviatura
 abbr #i #include
 abbr #d #define
-abbr ddperl #!/usr/bin/perl<CR><CR>use strict;<CR>use warnings;<CR>
-abbr ddbash #!/bin/bash<CR>set -e -u<CR>
-abbr ddpython #!/usr/bin/python
+abbr ddperl #!/usr/bin/env perl<CR><CR>use strict;<CR>use warnings;<CR>
+abbr ddbash #!/bin/bash<CR>set -euo pipefail<CR>
+abbr ddpython #!/usr/bin/env python3
 abbr ddtest void test () {<CR><CR>}
 
 " disable auto comment
@@ -129,5 +129,9 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_sh_shellcheck_args = "-x"
+let g:syntastic_cpp_config_file = '.syntastic_cpp_config'
+let g:syntastic_python_python_exec = '/usr/bin/python3'
+
 nnoremap <F9> :SyntasticToggleMode<CR>
+
+set tags=./tags,tags;$HOME
