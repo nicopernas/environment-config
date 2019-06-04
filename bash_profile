@@ -3,7 +3,7 @@ export HISTSIZE=10000
 export HISTFILESIZE=20000
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
+HISTCONTROL=ignoredups:ignorespace:erasedups
 HISTTIMEFORMAT="%d/%m/%y %T "
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -48,11 +48,11 @@ alias ..='cd ..'
 
 # functions
 function cgrep {
-	grep --include="*.[ch]" -rn "$1" "${@:2}"
+	grep --include=*.{c,cpp,h,hpp,s,S} -rn "${@}"
 }
 
 function lgrep {
-	grep --include="*.lua" -rn "$1" "${@:2}"
+	grep --include="*.lua" -rn "${@}"
 }
 
 function known_hosts_update {
