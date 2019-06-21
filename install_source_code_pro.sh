@@ -1,11 +1,13 @@
-#!/bin/bash -e
+#!/bin/bash
 
-tmp=`mktemp -d`
-cd $tmp
-wget https://github.com/adobe-fonts/source-code-pro/archive/2.010R-ro/1.030R-it.tar.gz
-tar zxvf 1.030R-it.tar.gz
+set -u -e
+
+dir="$( mktemp -d )"
+zip="/tmp/sourcecodepro.zip"
+wget -O "$zip" https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip
+unzip "$zip" -d "$dir"
 mkdir -p ~/.fonts
-cp source-code-pro*/OTF/*.otf ~/.fonts/
+cp "$dir"/*/OTF/*.otf ~/.fonts/
 fc-cache -f -v
-cd -
-rm -rf $tmp
+rm -rf "$zip" "$dir"
+echo 'done installing source code pro!'
