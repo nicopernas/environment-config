@@ -18,16 +18,16 @@ C_WHITE="\[\033[1m\]"
 C_GREEN="\[\033[32m\]"
 C_RED="\[\033[31m\]"
 
-if [ `uname` == 'Darwin' ]; then
-	export CLICOLOR=1 # enable colored ls output
+if [ "$( uname )" == 'Darwin' ]; then
+    export CLICOLOR=1
+    export LSCOLORS='gxfxcxdxbxexexabagacad'
+    alias ls='ls -bFHGLOPW'
 else
-	alias ls='ls --color'
+    alias ls='ls --color'
 fi
 
 #aliases
 alias grep='grep --colour=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
 alias h=history
 alias hgrep='history|grep'
 alias gs='git status'
@@ -42,28 +42,27 @@ alias ll='ls -l'
 alias llh='ls -lh'
 alias fuck='sudo $(history -p \!\!)'
 alias xmod='chmod +x'
-alias rand_pass='openssl rand -base64 20'
 alias mkae=make
 alias untar='tar xvf'
 alias ..='cd ..'
 
 # functions
-function cgrep {
-	grep --include=*.{c,cpp,h,hpp,s,S} -rn "${@}"
+cgrep() {
+    grep --include=*.{c,cpp,h,hpp,s,S} -rn "${@}"
 }
 
-function lgrep {
-	grep --include="*.lua" -rn "${@}"
+lgrep() {
+    grep --include="*.lua" -rn "${@}"
 }
 
-function known_hosts_update {
-	line_number=$1
-	if [[ "$line_number" =~ ^[0-9]+$ ]]; then
-		sed -i "${line_number}d" ~/.ssh/known_hosts
-	else
-		echo "Invalid line number: '$line_number'"
-		echo "Usage: $FUNCNAME line_number"
-	fi
+known_hosts_update() {
+    line_number=$1
+    if [[ "$line_number" =~ ^[0-9]+$ ]]; then
+        sed -i "${line_number}d" ~/.ssh/known_hosts
+    else
+        echo "Invalid line number: '$line_number'"
+        echo "Usage: $FUNCNAME line_number"
+    fi
 }
 
 GIT_PS1_SHOWUPSTREAM="auto"

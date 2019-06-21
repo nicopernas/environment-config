@@ -1,53 +1,60 @@
-#!/bin/bash -e
+#!/bin/bash
 
-function install_all {
+set -u -e
+
+script_dir="$( dirname "$( realpath "$0" )" )"
+
+install_all() {
     echo "Installing..."
 
-    echo "source $DIR/bash_profile #dotfiles" >> ~/.bash_profile
-    echo "source $DIR/bash_profile #dotfiles" >> ~/.bashrc
-    echo "export ENV_CONFIG=$DIR #dotfiles" >> ~/.bash_profile
-    echo "export ENV_CONFIG=$DIR #dotfiles" >> ~/.bashrc
+    echo "source $script_dir/bash_profile #dotfiles" >> ~/.bash_profile
+    echo "export ENV_CONFIG=$script_dir #dotfiles" >> ~/.bash_profile
+    echo "source $script_dir/bash_profile #dotfiles" >> ~/.bashrc
+    echo "export ENV_CONFIG=$script_dir #dotfiles" >> ~/.bashrc
 
-    ln -fs $DIR/inputrc ~/.inputrc
-    ln -fs $DIR/tmux.conf ~/.tmux.conf
+    ln -fs "$script_dir/inputrc" ~/.inputrc
+    ln -fs "$script_dir/tmux.conf" ~/.tmux.conf
 
     # git prompt tools
     url='https://raw.github.com/git/git/master/contrib/completion'
     wget "$url/git-completion.bash" -O ~/.git-completion.bash
     wget "$url/git-prompt.sh" -O ~/.git-prompt.sh
 
-    ln -fs $DIR/vimrc ~/.vimrc
+    ln -fs "$script_dir/vimrc" ~/.vimrc
 
     # vim pathogen install
     mkdir -p ~/.vim
-    cd ~/.vim
-    git clone https://github.com/tpope/vim-pathogen
-    ln -fs vim-pathogen/autoload autoload
-    mkdir -p ~/.vim/bundle
-    cd bundle
+    rm -rf ~/.vim/vim-pathogen
+    git clone https://github.com/tpope/vim-pathogen ~/.vim/vim-pathogen
+    ln -fs ~/.vim/vim-pathogen/autoload ~/.vim/autoload
 
     # install additional VIM plugins
-    git clone https://github.com/embear/vim-localvimrc.git
-    git clone --depth=1 https://github.com/vim-syntastic/syntastic.git
+    rm -rf ~/.vim/bundle
+    mkdir -p ~/.vim/bundle
+    git clone https://github.com/embear/vim-localvimrc.git ~/.vim/bundle/vim-localvimrc.git
+    git clone --depth=1 https://github.com/vim-syntastic/syntastic.git ~/.vim/bundle/syntastic.git
 
     source ~/.bash_profile
 
-    sed 's/[ ]*@@ //' >> ~/.gitconfig <<EOF
+    sed 's/[ ]*@@ //' > ~/.gitconfig <<EOF
+    @@ [user]
+    @@     name = Nicolás Pernas Maradei
+    @@     #email = nicopernas@gmail.com
     @@ [include]
-    @@     path = $DIR/gitconfig
+    @@     path = $script_dir/gitconfig
     @@ [diff]
-    @@ #    external = $DIR/external_diff.sh
+    @@     #external = $script_dir/external_diff.sh
     @@ [core]
-    @@     excludesfile = $DIR/gitignore_global
+    @@     excludesfile = $script_dir/gitignore_global
 EOF
 
-    sudofile=/etc/sudoers.d/$USER
-    sudo touch $sudofile
-    echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee -a $sudofile
-    sudo chmod 0440 $sudofile
+    sudofile="/etc/sudoers.d/$USER"
+    sudo touch "$sudofile"
+    echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee "$sudofile"
+    sudo chmod 0440 "$sudofile"
 }
 
-function uninstall_all {
+uninstall_all() {
     echo "Uninstalling..."
 
     sed -i '/#dotfiles/d' ~/.bash_profile ~/.bashrc
@@ -60,18 +67,15 @@ function uninstall_all {
     rm -rf ~/.vim/vim-pathogen
     rm -rf ~/.vim/autoload
     rm -rf ~/.vim/bundle
-    sudo rm /etc/sudoers.d/$USER
+    sudo rm "/etc/sudoers.d/$USER"
 }
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+action="${1:-install}"
 
-if [[ "$1" == "uninstall" ]]
-then
+if [[ "$action" == 'uninstall' ]]; then
     uninstall_all
 else
     install_all
 fi
-
-cd $DIR
 
 echo "Done!"
