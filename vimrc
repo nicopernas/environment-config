@@ -23,7 +23,8 @@ set tabstop=4 shiftwidth=4 expandtab
 set termencoding=utf-8 encoding=utf-8
 
 " Visualizacion
-"set background = dark
+set background=dark
+set color=desert
 syntax enable " Activar sintaxis: coloreado, etc
 
 "Abreviatura
