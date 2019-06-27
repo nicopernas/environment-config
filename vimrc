@@ -24,7 +24,7 @@ set termencoding=utf-8 encoding=utf-8
 
 " Visualizacion
 set background=dark
-set color=desert
+color desert
 syntax enable " Activar sintaxis: coloreado, etc
 
 "Abreviatura
