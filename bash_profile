@@ -65,6 +65,10 @@ known_hosts_update() {
     fi
 }
 
+plot () {
+    gnuplot -e "set terminal dumb 200 50; set datafile separator ','; plot '$1' pt '*'"
+}
+
 GIT_PS1_SHOWUPSTREAM="auto"
 
 source ~/.git-completion.bash
