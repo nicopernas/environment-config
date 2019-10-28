@@ -42,7 +42,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 set history=500
 
 " Ctrl-b toggles paste mode. Works in normal mode.
-map <C-p>  :set paste! paste?<CR>
+map <C-b>  :set paste! paste?<CR>
 
 " Ctrl-e toggles wrap mode. Works both normal and insert mode.
 map <C-e> :set wrap! wrap?<CR>
