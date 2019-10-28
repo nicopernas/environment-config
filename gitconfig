@@ -73,5 +73,6 @@
   stashed = stash list --pretty=format:'%gd: %Cred%h%Creset %Cgreen[%ar]%Creset %s'
   save4later = stash save
   rbi = "!f() { git rebase -i HEAD~$1; }; f"
+  fc = "!f() { git commit --fixup=$1; }; f"
   su = submodule update
   pick = cherry-pick
