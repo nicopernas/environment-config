@@ -17,7 +17,7 @@ set tabpagemax=100
 
 filetype plugin indent on
 " On pressing tab, insert 4 spaces
-set tabstop=4 shiftwidth=4 expandtab
+set tabstop=2 shiftwidth=2 expandtab
 
 " Codificacion
 set termencoding=utf-8 encoding=utf-8
