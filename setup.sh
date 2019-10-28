@@ -31,9 +31,12 @@ install_all() {
     # install additional VIM plugins
     rm -rf ~/.vim/bundle
     mkdir -p ~/.vim/bundle
-    git clone https://github.com/embear/vim-localvimrc.git ~/.vim/bundle/vim-localvimrc.git
+    git clone --depth=1 https://github.com/embear/vim-localvimrc.git ~/.vim/bundle/vim-localvimrc.git
     git clone --depth=1 https://github.com/vim-syntastic/syntastic.git ~/.vim/bundle/syntastic.git
+    git clone --depth=1 https://github.com/ludovicchabant/vim-gutentags.git ~/.vim/bundle/vim-gutentags.git
+    git clone --depth=1 https://github.com/kien/ctrlp.vim.git ~/.vim/bundle/ctrlp.vim.git
 
+    # shellcheck disable=SC1090
     source ~/.bash_profile
 
     sed 's/[ ]*@@ //' > ~/.gitconfig <<EOF
