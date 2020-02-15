@@ -76,3 +76,8 @@
   fc = "!f() { git commit --fixup=$1; }; f"
   su = submodule update
   pick = cherry-pick
+  open-modified = "!f() { git status --porcelain | awk '/[ ]?(M|U)/ {print $2}' | xargs -o vim -p; }; f"
+  open-last = "!f() { git diff-tree --no-commit-id --name-only -r HEAD^..HEAD | xargs -o vim -p; }; f"
+  clang-format = "!f() { git add -u && git status --porcelain | awk '/^M/ { print $2 }' | xargs -o clang-format -i; }; f"
+
+

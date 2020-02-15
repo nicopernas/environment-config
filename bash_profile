@@ -1,4 +1,4 @@
-export PATH="/usr/local/sbin:$HOME/.bin:$PATH"
+export PATH="/usr/local/sbin:$HOME/.bin:$HOME/.local/bin:$PATH"
 
 export HISTSIZE=10000
 export HISTFILESIZE=20000
@@ -48,7 +48,7 @@ alias ..='cd ..'
 
 # functions
 cgrep() {
-    grep --include=*.{c,cpp,h,hpp,s,S} -rn "${@}"
+    grep --include=*.{c,cpp,h,hpp,s,S} -rn --exclude-dir=build* "${@}"
 }
 
 lgrep() {
@@ -71,7 +71,8 @@ plot () {
 
 GIT_PS1_SHOWUPSTREAM="auto"
 
-source ~/.git-completion.bash
+#source ~/.git-completion.bash
 source ~/.git-prompt.sh
 
 export PS1="[\u@\h ${C_WHITE}\W${C_DEFAULT}]\$(__git_ps1 '${C_GREEN}(%s)${C_DEFAULT}')# "
+EDITOR=vim
