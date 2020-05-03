@@ -35,6 +35,13 @@ set background=dark
 color desert
 syntax enable " Activar sintaxis: coloreado, etc
 
+" spell check
+set spell
+set spelllang=en_gb
+set spellfile=~/.vim/spell/en.utf-8.add
+hi clear SpellBad
+hi SpellBad cterm=reverse
+
 "Abreviatura
 abbr #i #include
 abbr #d #define
@@ -51,6 +58,9 @@ set history=500
 
 " Ctrl-b toggles paste mode. Works in normal mode.
 map <C-b>  :set paste! paste?<CR>
+
+" Ctrl-s toggles spell check. Works in normal mode.
+map <C-s>  :set spell! spell?<CR>
 
 " Ctrl-e toggles wrap mode. Works both normal and insert mode.
 map <C-e> :set wrap! wrap?<CR>
@@ -179,6 +189,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers=['flake8']
+let g:syntastic_ignore_files=['^/usr/include/', '\.[ch]$', '\.[ch]pp$']
 
 nnoremap <F9> :SyntasticToggleMode<CR>
 
