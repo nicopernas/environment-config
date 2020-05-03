@@ -18,7 +18,7 @@ C_WHITE="\[\033[1m\]"
 C_GREEN="\[\033[32m\]"
 C_RED="\[\033[31m\]"
 
-if [ "$( uname )" == 'Darwin' ]; then
+if [[ "$( uname )" == 'Darwin' ]]; then
     export CLICOLOR=1
     export LSCOLORS='gxfxcxdxbxexexabagacad'
     alias ls='ls -bFHGLOPW'
@@ -63,6 +63,10 @@ known_hosts_update() {
         echo "Invalid line number: '$line_number'"
         echo "Usage: $FUNCNAME line_number"
     fi
+}
+
+last_file() {
+  ls -tr | tail -n1
 }
 
 plot () {
