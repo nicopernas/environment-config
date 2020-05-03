@@ -76,3 +76,7 @@ source ~/.git-prompt.sh
 
 export PS1="[\u@\h ${C_WHITE}\W${C_DEFAULT}]\$(__git_ps1 '${C_GREEN}(%s)${C_DEFAULT}')# "
 EDITOR=vim
+
+# disable Software Flow Control (XON/XOFF flow control)
+# https://unix.stackexchange.com/a/72092/398334
+stty -ixon
