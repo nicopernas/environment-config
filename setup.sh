@@ -9,8 +9,7 @@ install_all() {
 
     echo "source $script_dir/bash_profile #dotfiles" >> ~/.bash_profile
     echo "export ENV_CONFIG=$script_dir #dotfiles" >> ~/.bash_profile
-    echo "source $script_dir/bash_profile #dotfiles" >> ~/.bashrc
-    echo "export ENV_CONFIG=$script_dir #dotfiles" >> ~/.bashrc
+    echo "source $HOME/.bash_profile" >> ~/.bashrc
 
     ln -fs "$script_dir/inputrc" ~/.inputrc
     ln -fs "$script_dir/tmux.conf" ~/.tmux.conf
@@ -23,10 +22,11 @@ install_all() {
     ln -fs "$script_dir/vimrc" ~/.vimrc
 
     # vim pathogen install
-    mkdir -p ~/.vim/{undo,backup,swap}
+    mkdir -p ~/.vim/{undo,backup,swap,spell}
     rm -rf ~/.vim/vim-pathogen
     git clone https://github.com/tpope/vim-pathogen ~/.vim/vim-pathogen
     ln -fs ~/.vim/vim-pathogen/autoload ~/.vim/autoload
+    ln -fs "$script_dir/vim_spell_en.utf-8.add" ~/.vim/spell/en.utf-8.add
 
     # install additional VIM plugins
     rm -rf ~/.vim/bundle
