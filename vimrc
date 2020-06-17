@@ -69,7 +69,6 @@ imap <C-e> <C-O><C-e>
 nnoremap <Tab> :tabnext<CR>
 nnoremap <S-Tab> :tabprev<CR>
 
-
 " Move lines up and down
 nnoremap <c-j> :m .+1<CR>==
 nnoremap <c-k> :m .-2<CR>==
@@ -78,7 +77,7 @@ inoremap <c-k> <Esc>:m .-2<CR>==gi
 vnoremap <c-j> :m '>+1<CR>gv=gv
 vnoremap <c-k> :m '<-2<CR>gv=gv
 
-" Autocomplete with Ctrl-Space to autocomplete with local ocurrences:)
+" Autocomplete with Ctrl-Space to autocomplete with local occurrences:)
 inoremap <Nul> <C-x><C-n>
 
 " Display the cursor position on the last line of the screen or in the status
@@ -140,8 +139,11 @@ let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 " for unix/linux/solaris
 :au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
-highlight ColorColumn ctermbg=lightgrey guibg=lightgrey ctermfg=red guifg=red
-set colorcolumn=80
+function s:color_column()
+  highlight ColorColumn ctermbg=lightgrey guibg=lightgrey ctermfg=red guifg=red
+  set colorcolumn=80
+endfunction
+autocmd FileType c,cpp,perl,python,sh call s:color_column()
 
 " Disable visual bell
 set novisualbell
@@ -167,8 +169,6 @@ function s:run_autopep8()
   silent exec "!autopep8 -i " . bufname("%")
 endfunction
 autocmd BufWritePost *.py call s:run_autopep8()
-
-
 
 function s:LinuxKeywords()
     syn keyword cOperator likely unlikely
