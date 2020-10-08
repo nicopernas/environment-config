@@ -59,6 +59,15 @@ imap <C-e> <C-O><C-e>
 nnoremap <Tab> :tabnext<CR>
 nnoremap <S-Tab> :tabprev<CR>
 
+
+" Move lines up and down
+nnoremap <c-j> :m .+1<CR>==
+nnoremap <c-k> :m .-2<CR>==
+inoremap <c-j> <Esc>:m .+1<CR>==gi
+inoremap <c-k> <Esc>:m .-2<CR>==gi
+vnoremap <c-j> :m '>+1<CR>gv=gv
+vnoremap <c-k> :m '<-2<CR>gv=gv
+
 " Autocomplete with Ctrl-Space to autocomplete with local ocurrences:)
 inoremap <Nul> <C-x><C-n>
 
