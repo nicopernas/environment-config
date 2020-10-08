@@ -23,7 +23,7 @@ install_all() {
     ln -fs "$script_dir/vimrc" ~/.vimrc
 
     # vim pathogen install
-    mkdir -p ~/.vim
+    mkdir -p ~/.vim/{undo,backup,swap}
     rm -rf ~/.vim/vim-pathogen
     git clone https://github.com/tpope/vim-pathogen ~/.vim/vim-pathogen
     ln -fs ~/.vim/vim-pathogen/autoload ~/.vim/autoload
