@@ -175,7 +175,7 @@ nnoremap <F9> :SyntasticToggleMode<CR>
 
 " gutentags
 set statusline+=%{gutentags#statusline()}
-let g:gutentags_cache_dir = '/home/npernas/.my_tags'
+let g:gutentags_cache_dir = "~/.my_tags"
 
 " ctrlp
 let g:ctrlp_user_command = [
