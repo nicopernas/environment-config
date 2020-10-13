@@ -55,6 +55,26 @@ EOF
     sudo touch "$sudofile"
     echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee "$sudofile"
     sudo chmod 0440 "$sudofile"
+
+
+    if [ -f /usr/share/X11/xkb/symbols/gb ]; then
+        sed 's/[ ]*@@ //' | sudo tee -a /usr/share/X11/xkb/symbols/gb <<EOF
+        @@ partial alphanumeric_keys
+        @@ xkb_symbols "wasd" {
+        @@
+        @@     // WASD keyboard layout
+        @@
+        @@     include "gb(basic)"
+        @@
+        @@     name[Group1]="English (UK, WASD keyboard layout)";
+        @@
+        @@     key <AE02> { [          2,         at,    EuroSign ] };
+        @@     key <AC11> { [ apostrophe,    quotedbl             ] };
+        @@     key <TLDE>	{ [      grave,     notsign             ] };
+        @@  // key <MENU> { [    Super_R                          ] };
+        @@ };
+EOF
+    fi
 }
 
 uninstall_all() {
