@@ -1,7 +1,9 @@
 export PATH="/usr/local/sbin:$HOME/.bin:$HOME/.local/bin:$PATH"
 
-export HISTSIZE=10000
-export HISTFILESIZE=20000
+# set these to unlimited size
+export HISTSIZE=-1
+export HISTFILESIZE=-1
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoredups:ignorespace:erasedups
