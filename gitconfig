@@ -58,8 +58,8 @@
   prompt = false
 
 [alias]
-  mylog = log --author='Nicolás Pernas Maradei' --oneline
-  today = log --author='Nicolás Pernas Maradei' --oneline --since=midnight
+  mylog = log --author='Nicol.s Pernas Maradei' --oneline
+  today = log --author='Nicol.s Pernas Maradei' --oneline --since=midnight
   unstage = reset HEAD --
   last = log -1 HEAD
   ci = commit -v
