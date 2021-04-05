@@ -59,21 +59,20 @@ EOF
 
 
     if [ -f /usr/share/X11/xkb/symbols/gb ]; then
-        sed 's/[ ]*@@ //' | sudo tee -a /usr/share/X11/xkb/symbols/gb <<EOF
-        @@ partial alphanumeric_keys
-        @@ xkb_symbols "wasd" {
+      # TODO: register the layout in /usr/share/X11/xkb/rules/evdev.xml
+      sed 's/[ ]*@@//' <<EOF | sudo tee -a /usr/share/X11/xkb/symbols/gb
+        @@partial alphanumeric_keys
+        @@        xkb_symbols "wasd" {
         @@
-        @@     // WASD keyboard layout
+        @@    // WASD keyboard layout
+        @@    include "gb(basic)"
+        @@    name[Group1]="English (UK, WASD keyboard layout)";
         @@
-        @@     include "gb(basic)"
-        @@
-        @@     name[Group1]="English (UK, WASD keyboard layout)";
-        @@
-        @@     key <AE02> { [          2,         at,    EuroSign ] };
-        @@     key <AC11> { [ apostrophe,    quotedbl             ] };
-        @@     key <TLDE>	{ [      grave,     notsign             ] };
-        @@  // key <MENU> { [    Super_R                          ] };
-        @@ };
+        @@    key <AE02> { [          2,         at,    EuroSign ] };
+        @@    key <AC11> { [ apostrophe,    quotedbl             ] };
+        @@    key <TLDE> { [      grave,     notsign             ] };
+        @@ // key <MENU> { [    Super_R                          ] };
+        @@};
 EOF
     fi
 }
