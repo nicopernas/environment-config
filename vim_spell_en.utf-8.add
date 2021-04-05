@@ -125,3 +125,7 @@ dlsym
 calloc
 realloc
 bitrate
+noformat
+maxSubscriptionBitrate
+0
+BIO

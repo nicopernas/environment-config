@@ -36,7 +36,7 @@ color desert
 syntax enable " Activar sintaxis: coloreado, etc
 
 " spell check
-set spell
+"set spell
 set spelllang=en_gb
 set spellfile=~/.vim/spell/en.utf-8.add
 hi clear SpellBad
@@ -76,6 +76,9 @@ inoremap <c-j> <Esc>:m .+1<CR>==gi
 inoremap <c-k> <Esc>:m .-2<CR>==gi
 vnoremap <c-j> :m '>+1<CR>gv=gv
 vnoremap <c-k> :m '<-2<CR>gv=gv
+
+" map <C-B> :%s/<Esc>[[0-9;]*[mKG]//g<CR>
+
 
 " Autocomplete with Ctrl-Space to autocomplete with local occurrences:)
 inoremap <Nul> <C-x><C-n>
@@ -143,7 +146,7 @@ function s:color_column()
   highlight ColorColumn ctermbg=lightgrey guibg=lightgrey ctermfg=red guifg=red
   set colorcolumn=80
 endfunction
-autocmd FileType c,cpp,perl,python,sh call s:color_column()
+autocmd FileType c,cpp,perl,python,sh,gitcommit call s:color_column()
 
 " Disable visual bell
 set novisualbell
@@ -157,18 +160,23 @@ autocmd FileType * match Error /\s\+$/
 " Remove trailing white spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
 
+" code formatters ============
+augroup formatters
+
 " run clan-format on all C/C++ sources when saving
 function s:run_clang_format()
   silent exec "!clang-format -i -style=file " . bufname("%")
 endfunction
 autocmd BufWritePost *.c,*.h,*.cpp,*.hpp call s:run_clang_format()
 
-
 " run autopep8 on all python sources when saving
 function s:run_autopep8()
   silent exec "!autopep8 -i " . bufname("%")
 endfunction
 autocmd BufWritePost *.py call s:run_autopep8()
+
+augroup END
+" code formatters ============
 
 function s:LinuxKeywords()
     syn keyword cOperator likely unlikely
@@ -214,5 +222,8 @@ function BrightHighlightOn()
   hi cursorline cterm=none ctermbg=darkred ctermfg=white
   set nocursorline
 endfunction
+
+"fugitive
+set statusline+=%{FugitiveStatusline()}
 
 set tags=./tags,tags;$HOME
