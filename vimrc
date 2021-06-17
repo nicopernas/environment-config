@@ -36,11 +36,15 @@ color desert
 syntax enable " Activar sintaxis: coloreado, etc
 
 " spell check
-"set spell
 set spelllang=en_gb
 set spellfile=~/.vim/spell/en.utf-8.add
 hi clear SpellBad
 hi SpellBad cterm=reverse
+
+let ignore_spell_check = [ "c", "cpp", "perl", "python", "sh" ]
+autocmd BufWinEnter * if index(ignore_spell_check, &filetype) < 0
+      \ | set spell
+      \ | endif
 
 "Abreviatura
 abbr #i #include
