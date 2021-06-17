@@ -169,7 +169,7 @@ augroup formatters
 
 " run clan-format on all C/C++ sources when saving
 function s:run_clang_format()
-  silent exec "!clang-format -i -style=file " . bufname("%")
+  silent exec "!clang-format-6.0 -i -style=file " . bufname("%")
 endfunction
 autocmd BufWritePost *.c,*.h,*.cpp,*.hpp call s:run_clang_format()
 
