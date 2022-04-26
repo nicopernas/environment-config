@@ -83,11 +83,11 @@ fi
 
 # functions
 cgrep() {
-    grep --include=*.{c,cpp,h,hpp,s,S} -rn --exclude-dir=build* "${@}"
+    grep --include=*.{c,cpp,h,hpp,s,S,cc} -rn --exclude-dir=build* "${@}"
 }
 
-lgrep() {
-    grep --include="*.lua" -rn "${@}"
+rgrep() {
+    grep --include=*.{rs,toml} -rn --exclude-dir=build* "${@}"
 }
 
 known_hosts_update() {
@@ -115,6 +115,8 @@ source ~/.git-prompt.sh
 
 export PS1="[\u@\h ${C_WHITE}\W${C_DEFAULT}]\$(__git_ps1 '${C_GREEN}(%s)${C_DEFAULT}')# "
 EDITOR=vim
+
+export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/library/
 
 # disable Software Flow Control (XON/XOFF flow control)
 # https://unix.stackexchange.com/a/72092/398334

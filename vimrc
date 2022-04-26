@@ -41,7 +41,7 @@ set spellfile=~/.vim/spell/en.utf-8.add
 hi clear SpellBad
 hi SpellBad cterm=reverse
 
-let ignore_spell_check = [ "c", "cpp", "perl", "python", "sh" ]
+let ignore_spell_check = [ "c", "cpp", "perl", "python", "sh", "rust" ]
 autocmd BufWinEnter * if index(ignore_spell_check, &filetype) < 0
       \ | set spell
       \ | endif
@@ -201,13 +201,17 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers=['flake8']
-let g:syntastic_ignore_files=['^/usr/include/', '\.[ch]$', '\.[ch]pp$']
+let g:syntastic_ignore_files=['^/usr/include/', '\.[ch]$', '\.[ch]pp$', '\.cc$']
+let g:syntastic_mode_map = { 'mode': 'active',
+                           \ 'active_filetypes': ['c', 'cpp', 'python'],
+                           \ 'passive_filetypes': ['java'] }
 
 nnoremap <F9> :SyntasticToggleMode<CR>
 
 " gutentags
 set statusline+=%{gutentags#statusline()}
 let g:gutentags_cache_dir = "~/.my_tags"
+let g:gutentags_project_info = []
 
 " ctrlp
 let g:ctrlp_user_command = [
@@ -231,3 +235,15 @@ endfunction
 set statusline+=%{FugitiveStatusline()}
 
 set tags=./tags,tags;$HOME
+
+" Rust
+let g:rustfmt_autosave = 1
+let g:rustfmt_command = '/home/npernas/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rustfmt'
+"$HOME . "/.env-config/rust_fmt.sh"
+let g:rustfmt_options = '--edition 2021'
+" let g:rustfmt_options = expand('%:p')
+
+" empty this list so cargo is not run when you open a file.
+let g:syntastic_rust_checkers = []
+autocmd BufRead *.rs :setlocal tags=./.rusty-tags;/,$RUST_SRC_PATH/rusty-tags.vi
+autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --output=.rusty-tags --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!

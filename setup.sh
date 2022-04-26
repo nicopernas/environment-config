@@ -37,6 +37,7 @@ install_all() {
     git clone --depth=1 https://github.com/kien/ctrlp.vim.git ~/.vim/bundle/ctrlp.vim.git
     git clone --depth=1 https://github.com/tpope/vim-fugitive.git ~/.vim/bundle/vim-fugitive.git
     git clone --depth=1 https://github.com/tpope/vim-commentary.git ~/.vim/bundle/vim-commentary.git
+    git clone --depth=1 https://github.com/rust-lang/rust.vim.git ~/.vim/bundle/rust.vim
 
     # shellcheck disable=SC1090
     source ~/.bash_profile
