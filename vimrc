@@ -239,9 +239,7 @@ set tags=./tags,tags;$HOME
 " Rust
 let g:rustfmt_autosave = 1
 let g:rustfmt_command = '/home/npernas/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rustfmt'
-"$HOME . "/.env-config/rust_fmt.sh"
 let g:rustfmt_options = '--edition 2021'
-" let g:rustfmt_options = expand('%:p')
 
 " empty this list so cargo is not run when you open a file.
 let g:syntastic_rust_checkers = []
