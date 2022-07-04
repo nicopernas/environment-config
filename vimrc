@@ -151,7 +151,7 @@ function s:color_column()
   highlight ColorColumn ctermbg=lightgrey guibg=lightgrey ctermfg=red guifg=red
   set colorcolumn=80
 endfunction
-autocmd FileType c,cpp,perl,python,sh,gitcommit call s:color_column()
+autocmd FileType c,cpp,perl,python,sh,gitcommit,markdown call s:color_column()
 
 " Disable visual bell
 set novisualbell
@@ -170,7 +170,7 @@ augroup formatters
 
 " run clan-format on all C/C++ sources when saving
 function s:run_clang_format()
-  silent exec "!clang-format-6.0 -i -style=file " . bufname("%")
+  silent exec "!clang-format-14 -i -style=file " . bufname("%")
 endfunction
 autocmd BufWritePost *.c,*.h,*.cpp,*.hpp call s:run_clang_format()
 
