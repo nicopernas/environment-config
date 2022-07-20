@@ -15,6 +15,7 @@ set ls=2 " Display file name
 set tabpagemax=100
 
 filetype plugin indent on
+set autowrite
 " On pressing tab, insert 4 spaces
 set tabstop=2 shiftwidth=2 expandtab
 
