@@ -34,14 +34,9 @@ if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
-
-if [[ "$( uname )" == 'Darwin' ]]; then
-    export CLICOLOR=1
-    export LSCOLORS='gxfxcxdxbxexexabagacad'
-    alias ls='ls -bFHGLOPW'
-else
-    alias ls='ls --color'
-fi
+export CLICOLOR=1
+export LSCOLORS='gxfxcxdxbxexexabagacad'
+alias ls='ls --color'
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
