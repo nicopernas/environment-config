@@ -109,7 +109,7 @@ plot () {
 
 GIT_PS1_SHOWUPSTREAM="auto"
 
-#source ~/.git-completion.bash
+source ~/.git-completion.bash
 source ~/.git-prompt.sh
 
 export PS1="[\u@\h ${C_WHITE}\W${C_DEFAULT}]\$(__git_ps1 '${C_GREEN}(%s)${C_DEFAULT}')# "
