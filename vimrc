@@ -264,3 +264,18 @@ let g:go_highlight_operators = 1
 let g:go_imports_autosave = 0
 let g:go_fmt_autosave = 1
 let g:go_fmt_command = "gofmt"
+
+" NERDTree
+nnoremap <C-n> :NERDTreeToggle<CR>
+
+" Start NERDTree and put the cursor back in the other window.
+autocmd VimEnter * NERDTree | wincmd p
+
+" Open files in new tabs
+let NERDTreeCustomOpenArgs={'file':{'where': 't'}}
+
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
+
+" Close the tab if NERDTree is the only window remaining in it.
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
