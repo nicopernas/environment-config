@@ -85,6 +85,10 @@ rgrep() {
     grep --include=*.{rs,toml} -rn --exclude-dir=build* "${@}"
 }
 
+ggrep() {
+    grep --include=*.{go,toml} -rn "${@}"
+}
+
 known_hosts_update() {
     line_number=$1
     if [[ "$line_number" =~ ^[0-9]+$ ]]; then
