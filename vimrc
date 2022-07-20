@@ -249,3 +249,18 @@ let g:rustfmt_options = '--edition 2021'
 let g:syntastic_rust_checkers = []
 autocmd BufRead *.rs :setlocal tags=./.rusty-tags;/,$RUST_SRC_PATH/rusty-tags.vi
 autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --output=.rusty-tags --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+
+" GO
+au filetype go inoremap <buffer> <Nul> <C-x><C-o>
+
+" Go syntax highlighting
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_operators = 1
+
+" Auto formatting and importing
+let g:go_imports_autosave = 0
+let g:go_fmt_autosave = 1
+let g:go_fmt_command = "gofmt"
