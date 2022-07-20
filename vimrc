@@ -46,6 +46,9 @@ autocmd BufWinEnter * if index(ignore_spell_check, &filetype) < 0
       \ | set spell
       \ | endif
 
+" remove preview when autocompleting
+set completeopt-=preview
+
 "Abreviatura
 abbr #i #include
 abbr #d #define
