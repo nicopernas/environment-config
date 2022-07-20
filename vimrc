@@ -32,7 +32,6 @@ au CursorHold,CursorHoldI * checktime
 set updatetime=1000
 
 " Visualizacion
-set background=dark
 color desert
 syntax enable " Activar sintaxis: coloreado, etc
 
