@@ -144,7 +144,7 @@ let g:netrw_list_hide=netrw_gitignore#Hide()
 " hide dotfiles by default (this is the string toggled by netrw-gh)
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
-let g:markdown_fenced_languages = ['c', 'cpp', 'python', 'bash', 'vim']
+let g:markdown_fenced_languages = ['c', 'cpp', 'python', 'bash', 'vim', 'go']
 
 " VimTip 80: Restore cursor to file position in previous editing session
 " for unix/linux/solaris
