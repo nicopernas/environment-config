@@ -108,6 +108,7 @@ plot () {
 }
 
 GIT_PS1_SHOWUPSTREAM="auto"
+GIT_PS1_STATESEPARATOR=''
 
 source ~/.git-completion.bash
 source ~/.git-prompt.sh
