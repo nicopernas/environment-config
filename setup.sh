@@ -19,27 +19,31 @@ install_all() {
     wget "$url/git-completion.bash" -O ~/.git-completion.bash
     wget "$url/git-prompt.sh" -O ~/.git-prompt.sh
 
+    # VIM
     ln -fs "$script_dir/vimrc" ~/.vimrc
-
-    # vim pathogen install
-    mkdir -p ~/.vim/{undo,backup,swap,spell}
-    rm -rf ~/.vim/vim-pathogen
+    mkdir -p ~/.vim/{undo,backup,swap,spell,bundle}
     git clone https://github.com/tpope/vim-pathogen ~/.vim/vim-pathogen
+    plugins=(
+      https://github.com/embear/vim-localvimrc.git
+      https://github.com/vim-syntastic/syntastic.git
+      # https://github.com/ludovicchabant/vim-gutentags.git
+      https://github.com/kien/ctrlp.vim.git
+      https://github.com/tpope/vim-fugitive.git
+      https://github.com/tpope/vim-commentary.git
+      https://github.com/rust-lang/rust.vim.git
+      https://github.com/fatih/vim-go.git
+      https://github.com/preservim/nerdtree.git
+      https://github.com/tomlion/vim-solidity.git
+      https://github.com/leafgarland/typescript-vim.git
+      https://github.com/neoclide/coc.nvim.git
+    )
+
+    for url in "${plugins[@]}"; do
+      git clone --depth=1 "$url" "$HOME/.vim/bundle/$( basename "$url" )"
+    done
+
     ln -fs ~/.vim/vim-pathogen/autoload ~/.vim/autoload
     ln -fs "$script_dir/vim_spell_en.utf-8.add" ~/.vim/spell/en.utf-8.add
-
-    # install additional VIM plugins
-    rm -rf ~/.vim/bundle
-    mkdir -p ~/.vim/bundle
-    git clone --depth=1 https://github.com/embear/vim-localvimrc.git ~/.vim/bundle/vim-localvimrc.git
-    git clone --depth=1 https://github.com/vim-syntastic/syntastic.git ~/.vim/bundle/syntastic.git
-    git clone --depth=1 https://github.com/ludovicchabant/vim-gutentags.git ~/.vim/bundle/vim-gutentags.git
-    git clone --depth=1 https://github.com/kien/ctrlp.vim.git ~/.vim/bundle/ctrlp.vim.git
-    git clone --depth=1 https://github.com/tpope/vim-fugitive.git ~/.vim/bundle/vim-fugitive.git
-    git clone --depth=1 https://github.com/tpope/vim-commentary.git ~/.vim/bundle/vim-commentary.git
-    git clone --depth=1 https://github.com/rust-lang/rust.vim.git ~/.vim/bundle/rust.vim
-    git clone --depth=1 https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go
-    git clone --depth=1 https://github.com/preservim/nerdtree.git ~/.vim/bundle/nerdtree
 
     # shellcheck disable=SC1090
     source ~/.bash_profile
