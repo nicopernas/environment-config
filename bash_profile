@@ -86,7 +86,7 @@ rgrep() {
 }
 
 ggrep() {
-    grep --include=*.{go,toml,proto} -rn "${@}"
+    grep --include=*.{go,toml,proto,mod} -rn "${@}"
 }
 
 known_hosts_update() {
