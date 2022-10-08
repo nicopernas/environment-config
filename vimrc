@@ -29,11 +29,11 @@ set undodir=~/.vim/undo
 " auto reloads the file if it's been changed from the outside
 set autoread
 au CursorHold,CursorHoldI * checktime
-set updatetime=1000
 
 " Visualizacion
-color desert
-syntax enable " Activar sintaxis: coloreado, etc
+color evening
+syntax enable
+hi EndOfBuffer ctermfg=lightblue ctermbg=NONE cterm=NONE
 
 " spell check
 set spelllang=en_gb
