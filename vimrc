@@ -53,7 +53,7 @@ set completeopt-=preview
 abbr #i #include
 abbr #d #define
 abbr ddperl #!/usr/bin/env perl<CR><CR>use strict;<CR>use warnings;<CR>
-abbr ddbash #!/bin/bash<CR>set -euo pipefail<CR>
+abbr ddbash #!/usr/bin/env bash<CR>set -euo pipefail<CR>
 abbr ddpython #!/usr/bin/env python3
 abbr ddtest void test () {<CR><CR>}
 
