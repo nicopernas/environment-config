@@ -41,7 +41,7 @@ set spellfile=~/.vim/spell/en.utf-8.add
 hi clear SpellBad
 hi SpellBad cterm=reverse
 
-let ignore_spell_check = [ "c", "cpp", "perl", "python", "sh", "rust" ]
+let ignore_spell_check = [ "c", "cpp", "perl", "python", "sh", "rust", "go", "typescript" ]
 autocmd BufWinEnter * if index(ignore_spell_check, &filetype) < 0
       \ | set spell
       \ | endif
