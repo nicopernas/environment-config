@@ -50,12 +50,12 @@ autocmd BufWinEnter * if index(ignore_spell_check, &filetype) < 0
 set completeopt-=preview
 
 "Abreviatura
-abbr #i #include
-abbr #d #define
-abbr ddperl #!/usr/bin/env perl<CR><CR>use strict;<CR>use warnings;<CR>
-abbr ddbash #!/usr/bin/env bash<CR>set -euo pipefail<CR>
-abbr ddpython #!/usr/bin/env python3
-abbr ddtest void test () {<CR><CR>}
+iabbr #i #include
+iabbr #d #define
+
+autocmd BufNewFile *.sh 0r ~/.vim/skeletons/bash.sh
+autocmd BufNewFile *.py 0r ~/.vim/skeletons/python.py
+autocmd BufNewFile *.pl 0r ~/.vim/skeletons/perl.pl
 
 " disable auto comment
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o

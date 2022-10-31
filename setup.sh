@@ -38,6 +38,8 @@ install_all() {
       https://github.com/neoclide/coc.nvim.git
     )
 
+    ln -fs "$script_dir/skeletons" "$HOME/.vim/skeletons"
+
     for url in "${plugins[@]}"; do
       git clone --depth=1 "$url" "$HOME/.vim/bundle/$( basename "$url" )"
     done
