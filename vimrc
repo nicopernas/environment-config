@@ -153,7 +153,7 @@ let g:markdown_fenced_languages = ['c', 'cpp', 'python', 'bash', 'vim', 'go']
 
 function s:color_column()
   highlight ColorColumn ctermbg=lightgrey guibg=lightgrey ctermfg=red guifg=red
-  set colorcolumn=100
+  set colorcolumn=120
 endfunction
 autocmd FileType go,c,cpp,perl,python,sh,gitcommit,markdown call s:color_column()
 
@@ -262,7 +262,7 @@ let g:go_imports_autosave = 0
 let g:go_fmt_autosave = 1
 let g:go_fmt_command = "golines"
 let g:go_fmt_options = {
-      \ 'golines': '--base-formatter=gofmt',
+      \ 'golines': '--base-formatter=gofmt --max-len=120',
     \ }
 
 " CoC
