@@ -36,6 +36,7 @@ install_all() {
       https://github.com/tomlion/vim-solidity.git
       https://github.com/leafgarland/typescript-vim.git
       https://github.com/neoclide/coc.nvim.git
+      https://github.com/NoahTheDuke/vim-just.git
     )
 
     ln -fs "$script_dir/skeletons" "$HOME/.vim/skeletons"
