@@ -10,7 +10,7 @@ set autoindent " Activar autoindentado
 set sm "Muestra llave/parentesis de comienzo al escribir el del final
 set number "Numerar filas
 "set wrap "Evita el scroll horizontal con lineas muy largas
-"set textwidth=80 " add a new line after 80  chars automatically
+set textwidth=100 " add a new line after 80  chars automatically
 set ls=2 " Display file name
 set tabpagemax=100
 
@@ -155,7 +155,7 @@ function s:color_column()
   highlight ColorColumn ctermbg=lightgrey guibg=lightgrey ctermfg=red guifg=red
   set colorcolumn=120
 endfunction
-autocmd FileType go,c,cpp,perl,python,sh,gitcommit,markdown call s:color_column()
+autocmd FileType go,c,cpp,perl,python,sh,gitcommit,markdown,typescript call s:color_column()
 
 " Disable visual bell
 set novisualbell
@@ -216,7 +216,7 @@ nnoremap <F9> :SyntasticToggleMode<CR>
 " ctrlp
 let g:ctrlp_user_command = [
   \ '.git',
-  \ 'cd %s && git ls-files . -co --exclude-standard',
+  \ 'cd %s && git ls-files . -co --exclude-standard | grep -E -v -e "^chain/third_party" -e "/_generated" ',
   \ 'find %s -type f'
   \ ]
 
@@ -238,35 +238,17 @@ set splitright
 set statusline+=%{FugitiveStatusline()}
 
 " Rust
-let g:rustfmt_autosave = 1
-let g:rustfmt_command = '/home/npernas/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rustfmt'
-let g:rustfmt_options = '--edition 2021'
+"let g:rustfmt_autosave = 1
+"let g:rustfmt_command = '/home/npernas/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rustfmt'
+"let g:rustfmt_options = '--edition 2021'
 
 " empty this list so cargo is not run when you open a file.
 "let g:syntastic_rust_checkers = []
 "autocmd BufRead *.rs :setlocal tags=./.rusty-tags;/,$RUST_SRC_PATH/rusty-tags.vi
 "autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --output=.rusty-tags --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
 
-" GO
-"au filetype go inoremap <buffer> <Nul> <C-x><C-o>
-
-" Go syntax highlighting
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_operators = 1
-
-" Auto formatting and importing
-let g:go_imports_autosave = 0
-let g:go_fmt_autosave = 1
-let g:go_fmt_command = "golines"
-let g:go_fmt_options = {
-      \ 'golines': '--base-formatter=gofmt --max-len=120',
-    \ }
-
 " CoC
-let g:coc_global_extensions = ['coc-tsserver', 'coc-json', 'coc-go']
+let g:coc_global_extensions = ['coc-tsserver', 'coc-json', 'coc-go', 'coc-python']
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
@@ -412,3 +394,41 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+" prettier
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+
+" GO
+" au filetype go inoremap <buffer> <Nul> <C-x><C-o>
+
+" Go syntax highlighting
+let g:go_highlight_fields = 1
+"let g:go_highlight_functions = 1
+"let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_operators = 1
+
+" Auto formatting and importing
+let g:go_imports_autosave = 1
+let g:go_fmt_autosave = 1
+let g:go_fmt_command = "golines"
+let g:go_fmt_options = {
+\ 'golines': '--base-formatter=gofmt --max-len=120',
+\ }
+
+" Show the function signature for a given routine with \ + i:
+autocmd BufEnter *.go nmap <leader>i  <Plug>(go-info)
+
+" Show the interfaces a type implements with \ + ii:
+autocmd BufEnter *.go nmap <leader>ii  <Plug>(go-implements)
+
+" Describe the definition of a given type with \ + ci:
+autocmd BufEnter *.go nmap <leader>ci  <Plug>(go-describe)
+
+" See the callers of a given function with \ + cc:
+autocmd BufEnter *.go nmap <leader>cc  <Plug>(go-callers)
+" Find all references of a given type/function in the codebase with \ + cr:
+nmap <leader>cr <Plug>(coc-references)
+
+" Value 0: Don't ask before loading a vimrc file.
+let g:localvimrc_ask = 0
