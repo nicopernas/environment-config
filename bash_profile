@@ -78,15 +78,23 @@ fi
 
 # functions
 cgrep() {
-    grep --include=*.{c,cpp,h,hpp,s,S,cc} -rn --exclude-dir=build* "${@}"
+  # C/C++
+  grep --include=*.{c,cpp,h,hpp,s,S,cc} -rn --exclude-dir=build* "${@}"
 }
 
 rgrep() {
-    grep --include=*.{rs,toml} -rn --exclude-dir=build* "${@}"
+  # rust
+  grep --include=*.{rs,toml} -rn --exclude-dir=build* "${@}"
 }
 
 ggrep() {
-    grep --include=*.{go,toml,proto,mod} -rn "${@}"
+  # golang
+  grep --include=*.{go,toml,proto,mod} -rn "${@}"
+}
+
+tgrep() {
+  # typescript / JS
+  grep --include=*.{js,ts,json,yaml,mjs} -rn --exclude-dir=node_modules --exclude-dir=dist "${@}"
 }
 
 known_hosts_update() {
@@ -116,8 +124,11 @@ source ~/.git-prompt.sh
 export PS1="[\u@\h ${C_WHITE}\W${C_DEFAULT}]\$(__git_ps1 '${C_GREEN}(%s)${C_DEFAULT}')# "
 EDITOR=vim
 
-export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/library/
-
 # disable Software Flow Control (XON/XOFF flow control)
 # https://unix.stackexchange.com/a/72092/398334
 stty -ixon
+
+
+dsh() {
+  docker container exec -it "$1" sh
+}
