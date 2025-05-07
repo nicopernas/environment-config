@@ -2,7 +2,7 @@
 
 [core]
   pager = less -FRSX
-  editor = vim -f
+  editor = nvim -f
   autocrlf = input
   whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
 
@@ -79,8 +79,10 @@
   fc = "!f() { git commit --fixup=$1; }; f"
   su = submodule update
   pick = cherry-pick
-  open-modified = "!f() { git status --porcelain | awk '/^[ ]?(M|U)/ {print $2}' | xargs -o vim -p; }; f"
-  open-last = "!f() { git diff-tree --no-commit-id --name-only -r HEAD^..HEAD | xargs -o vim -p; }; f"
+  open-modified = "!f() { git status --porcelain | awk '/^[ ]?(M|U)/ {print $2}' | xargs -o nvim -p; }; f"
+  open-last = "!f() { git diff-tree --no-commit-id --name-only -r HEAD^..HEAD | xargs -o nvim -p; }; f"
   clang-format = "!f() { git add -u && git status --porcelain | awk '/^M/ { print $2 }' | xargs -o clang-format -i; }; f"
   fix-author-date = "!f() { git rebase $1 -i --exec 'git commit --amend --no-edit --date=now' --exec 'sleep 1'; }; f"
+  skim = reset HEAD~1
+  append = commit --fixup=HEAD
 

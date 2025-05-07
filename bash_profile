@@ -55,7 +55,7 @@ alias ga='git add'
 alias gu='git undo'
 alias grb='git rbi'
 alias gl='git lg'
-alias gitconfig='vim -p ~/.gitconfig "$ENV_CONFIG"/gitconfig'
+alias gitconfig='nvim -p ~/.gitconfig "$ENV_CONFIG"/gitconfig'
 alias ll='ls -l'
 alias llh='ls -lh'
 alias fuck='sudo $(history -p \!\!)'
@@ -94,7 +94,7 @@ ggrep() {
 
 tgrep() {
   # typescript / JS
-  grep --include=*.{js,ts,json,yaml,mjs} -rn --exclude-dir=node_modules --exclude-dir=dist "${@}"
+  grep --include=*.{js,ts,json,yaml,mjs} -rn --exclude-dir={node_modules,dist,__opstack} "${@}"
 }
 
 known_hosts_update() {
@@ -122,7 +122,7 @@ source ~/.git-completion.bash
 source ~/.git-prompt.sh
 
 export PS1="[\u@\h ${C_WHITE}\W${C_DEFAULT}]\$(__git_ps1 '${C_GREEN}(%s)${C_DEFAULT}')# "
-EDITOR=vim
+export EDITOR=nvim
 
 # disable Software Flow Control (XON/XOFF flow control)
 # https://unix.stackexchange.com/a/72092/398334
@@ -131,4 +131,8 @@ stty -ixon
 
 dsh() {
   docker container exec -it "$1" sh
+}
+
+xvim() {
+  xargs -o nvim -p
 }

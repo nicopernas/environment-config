@@ -403,10 +403,10 @@ command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 
 " Go syntax highlighting
 let g:go_highlight_fields = 1
-"let g:go_highlight_functions = 1
+let g:go_highlight_functions = 1
 "let g:go_highlight_function_calls = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_operators = 1
+"let g:go_highlight_extra_types = 1
+"let g:go_highlight_operators = 1
 
 " Auto formatting and importing
 let g:go_imports_autosave = 1
@@ -415,6 +415,10 @@ let g:go_fmt_command = "golines"
 let g:go_fmt_options = {
 \ 'golines': '--base-formatter=gofmt --max-len=120',
 \ }
+
+" Add missing imports on save
+" autocmd BufWritePre *.go :silent! call CocAction('runCommand', 'editor.action.organizeImport')
+" autocmd BufWritePre *.go :silent! call CocAction('organizeImport')
 
 " Show the function signature for a given routine with \ + i:
 autocmd BufEnter *.go nmap <leader>i  <Plug>(go-info)
