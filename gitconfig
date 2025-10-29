@@ -79,11 +79,12 @@
   fc = "!f() { git commit --fixup=$1; }; f"
   su = submodule update
   pick = cherry-pick
-  open-modified = "!f() { git status --porcelain | awk '/^[ ]?(M|U)/ {print $2}' | xargs -o nvim -p; }; f"
-  open-last = "!f() { git diff-tree --no-commit-id --name-only -r HEAD^..HEAD | xargs -o nvim -p; }; f"
+  open-modified = "!git status --porcelain | awk '/^[ ]?(M|U)/ {print $2}' | xargs -o nvim -p"
+  open-last = "!git diff-tree --no-commit-id --name-only -r HEAD^..HEAD | xargs -o nvim -p"
   open-commit = "!f() { git diff-tree --no-commit-id --name-only -r $1 | xargs -o nvim -p; }; f"
-  clang-format = "!f() { git add -u && git status --porcelain | awk '/^M/ { print $2 }' | xargs -o clang-format -i; }; f"
+  clang-format = "!git add -u && git status --porcelain | awk '/^M/ { print $2 }' | xargs -o clang-format -i"
   fix-author-date = "!f() { git rebase $1 -i --exec 'git commit --amend --no-edit --date=now' --exec 'sleep 1'; }; f"
   skim = reset HEAD~1
   append = commit --fixup=HEAD
   sync = "!f() { git checkout main && git pull && git chechout $1 && git rebase -i main && git push -f; }; f"
+  prune-branches = "!git fetch --prune && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -D"
