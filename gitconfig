@@ -86,4 +86,4 @@
   fix-author-date = "!f() { git rebase $1 -i --exec 'git commit --amend --no-edit --date=now' --exec 'sleep 1'; }; f"
   skim = reset HEAD~1
   append = commit --fixup=HEAD
-
+  sync = "!f() { git checkout main && git pull && git chechout $1 && git rebase -i main && git push -f; }; f"
