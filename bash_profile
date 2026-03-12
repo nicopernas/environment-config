@@ -128,6 +128,7 @@ export EDITOR=nvim
 # https://unix.stackexchange.com/a/72092/398334
 stty -ixon
 
+ulimit -n 10240
 
 dsh() {
   docker container exec -it "$1" sh
