@@ -1,0 +1,360 @@
+#!/usr/bin/env bash
+
+# git-stack-rebase - Rebase a stack of branches after changes to an earlier branch
+# Auto-detects the stack from the current branch and rebases all children
+
+set -eo pipefail
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+print_info() {
+    echo -e "${BLUE}INFO:${NC} $1"
+}
+
+print_success() {
+    echo -e "${GREEN}SUCCESS:${NC} $1"
+}
+
+print_warning() {
+    echo -e "${YELLOW}WARNING:${NC} $1"
+}
+
+print_error() {
+    echo -e "${RED}ERROR:${NC} $1"
+}
+
+show_usage() {
+    echo "Usage: git-stack-rebase [options] [base-ref] [start-num]"
+    echo ""
+    echo "Rebases/syncs all branches in a stack after changes to an earlier branch."
+    echo ""
+    echo "Arguments:"
+    echo "  base-ref        Required when on a non-numbered branch (e.g., main)"
+    echo "                  This is the base that PRs target"
+    echo "  start-num       Branch number for the first commit (default: 0)"
+    echo "                  Commit 0 -> -start-num, commit 1 -> -(start-num+1), etc."
+    echo ""
+    echo "Options:"
+    echo "  --dry-run       Show what would be done without rebasing"
+    echo "  --no-push       Skip push prompts, only rebase locally"
+    echo "  --force-push    Push all branches without prompting"
+    echo "  --help          Show this help message"
+    echo ""
+    echo "Examples:"
+    echo "  # On base branch nico/foo after rebase -i, sync all numbered branches:"
+    echo "  git-stack-rebase main                # Reset -0, -1, -2 to match commits in nico/foo"
+    echo ""
+    echo "  # Number branches starting from 1 (first commit -> -1, second -> -2, ...):"
+    echo "  git-stack-rebase main 1              # Reset -1, -2, ... mapping commits in order"
+    echo ""
+    echo "  # On branch nico/foo-0 after making changes:"
+    echo "  git-stack-rebase                     # Rebase nico/foo-1, nico/foo-2, etc."
+    echo ""
+    echo "  # Preview what would happen:"
+    echo "  git-stack-rebase --dry-run main"
+    echo ""
+    echo "Workflows:"
+    echo "  From numbered branch (nico/foo-1):"
+    echo "    1. Make your changes and commit/amend"
+    echo "    2. Run git-stack-rebase"
+    echo "    3. Child branches are rebased in order"
+    echo ""
+    echo "  From development branch (nico/foo):"
+    echo "    1. Run git rebase -i main to modify commits"
+    echo "    2. Run git-stack-rebase main"
+    echo "    3. Numbered branches are reset to match your commits"
+    echo ""
+    echo "If a rebase conflict occurs, resolve it manually, then re-run the script."
+}
+
+# Parse arguments
+DRY_RUN=false
+NO_PUSH=false
+FORCE_PUSH=false
+BASE_REF=""
+START_NUM=""
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+    --dry-run)
+        DRY_RUN=true
+        shift
+        ;;
+    --no-push)
+        NO_PUSH=true
+        shift
+        ;;
+    --force-push)
+        FORCE_PUSH=true
+        shift
+        ;;
+    --help|-h)
+        show_usage
+        exit 0
+        ;;
+    -*)
+        print_error "Unknown option: $1"
+        show_usage
+        exit 1
+        ;;
+    *)
+        if [[ -z "$BASE_REF" ]]; then
+            BASE_REF="$1"
+        elif [[ -z "$START_NUM" && "$1" =~ ^[0-9]+$ ]]; then
+            START_NUM="$1"
+        else
+            print_error "Too many arguments"
+            show_usage
+            exit 1
+        fi
+        shift
+        ;;
+    esac
+done
+
+# Check if we're in a git repository
+if ! git rev-parse --git-dir >/dev/null 2>&1; then
+    print_error "Not in a git repository"
+    exit 1
+fi
+
+# Get current branch
+CURRENT_BRANCH=$(git branch --show-current)
+if [[ -z "$CURRENT_BRANCH" ]]; then
+    print_error "Not on a branch (detached HEAD)"
+    exit 1
+fi
+
+# Determine mode based on branch name
+# Case 1: "nico/foo-0" -> REBASE mode: rebase children onto this branch
+# Case 2: "nico/foo" -> SYNC mode: reset numbered branches to match commits
+if [[ "$CURRENT_BRANCH" =~ ^(.+)-([0-9]+)$ ]]; then
+    MODE="rebase"
+    STACK_PREFIX="${BASH_REMATCH[1]}"
+    CURRENT_INDEX="${BASH_REMATCH[2]}"
+    print_info "Mode: rebase children"
+    print_info "Stack prefix: $STACK_PREFIX"
+    print_info "Current position: $CURRENT_INDEX"
+else
+    MODE="sync"
+    STACK_PREFIX="$CURRENT_BRANCH"
+
+    # Verify there are actually child branches
+    if ! git branch --list "${STACK_PREFIX}-*" | grep -qE "^[* ]*${STACK_PREFIX}-[0-9]+$"; then
+        print_error "Current branch '$CURRENT_BRANCH' doesn't match stack pattern"
+        print_info "Expected: a numbered branch (prefix-N) or a base branch with children (prefix with prefix-0, prefix-1, etc.)"
+        exit 1
+    fi
+
+    # BASE_REF is required for sync mode
+    if [[ -z "$BASE_REF" ]]; then
+        print_error "Base reference required when on a non-numbered branch"
+        print_info "Usage: git-stack-rebase <base-ref>  (e.g., git-stack-rebase main)"
+        exit 1
+    fi
+
+    # Validate base ref exists
+    if ! git rev-parse --verify "$BASE_REF" >/dev/null 2>&1; then
+        print_error "Base reference '$BASE_REF' does not exist"
+        exit 1
+    fi
+
+    # Default START_NUM after parsing
+    START_NUM="${START_NUM:-0}"
+
+    print_info "Mode: sync numbered branches"
+    print_info "Stack prefix: $STACK_PREFIX"
+    print_info "Base reference: $BASE_REF"
+    if [[ "$START_NUM" -gt 0 ]]; then
+        print_info "Starting from branch: ${STACK_PREFIX}-${START_NUM}"
+    fi
+fi
+
+# Find all numbered branches in this stack
+STACK_BRANCHES=()
+for branch in $(git branch --list "${STACK_PREFIX}-*" | sed 's/^[* ]*//' | sort -t'-' -k2 -n); do
+    # Verify it matches the exact pattern (not something like prefix-0-extra)
+    if [[ "$branch" =~ ^${STACK_PREFIX}-([0-9]+)$ ]]; then
+        STACK_BRANCHES+=("$branch")
+    fi
+done
+
+if [[ ${#STACK_BRANCHES[@]} -eq 0 ]]; then
+    print_error "No stack branches found matching '${STACK_PREFIX}-N'"
+    exit 1
+fi
+
+print_info "Found stack branches: ${STACK_BRANCHES[*]}"
+
+# Function to prompt for push
+prompt_push() {
+    local branch=$1
+    if [[ "$NO_PUSH" == "true" ]]; then
+        return 1
+    fi
+    if [[ "$FORCE_PUSH" == "true" ]]; then
+        return 0
+    fi
+
+    echo -n "Push $branch to origin? [y/N] "
+    read -r response
+    [[ "$response" =~ ^[Yy]$ ]]
+}
+
+# ============================================================================
+# SYNC MODE: Reset numbered branches to match commits in current branch
+# ============================================================================
+if [[ "$MODE" == "sync" ]]; then
+    # Get commits from base_ref to HEAD
+    COMMITS=($(git rev-list --reverse "$BASE_REF..HEAD"))
+
+    if [[ ${#COMMITS[@]} -eq 0 ]]; then
+        print_error "No commits found between $BASE_REF and HEAD"
+        exit 1
+    fi
+
+    print_info "Found ${#COMMITS[@]} commits in $CURRENT_BRANCH"
+    print_info "Mapping: commit 0 -> ${STACK_PREFIX}-${START_NUM}, ..., commit $(( ${#COMMITS[@]} - 1 )) -> ${STACK_PREFIX}-$(( START_NUM + ${#COMMITS[@]} - 1 ))"
+
+    echo ""
+
+    if [[ "$DRY_RUN" == "true" ]]; then
+        print_warning "DRY RUN MODE - No changes will be made"
+        echo ""
+        for i in "${!COMMITS[@]}"; do
+            branch="${STACK_PREFIX}-$(( START_NUM + i ))"
+            commit_short=$(git rev-parse --short "${COMMITS[$i]}")
+            commit_msg=$(git log -1 --pretty=format:"%s" "${COMMITS[$i]}")
+            verb="Reset"
+            if ! git rev-parse --verify "$branch" >/dev/null 2>&1; then
+                verb="Create"
+            fi
+            echo "  Would $verb $branch -> $commit_short ($commit_msg)"
+        done
+        exit 0
+    fi
+
+    UPDATED_BRANCHES=()
+
+    for i in "${!COMMITS[@]}"; do
+        branch="${STACK_PREFIX}-$(( START_NUM + i ))"
+        commit="${COMMITS[$i]}"
+        commit_short=$(git rev-parse --short "$commit")
+        commit_msg=$(git log -1 --pretty=format:"%s" "$commit")
+
+        if git rev-parse --verify "$branch" >/dev/null 2>&1; then
+            print_info "Resetting $branch to $commit_short ($commit_msg)..."
+        else
+            print_info "Creating $branch at $commit_short ($commit_msg)..."
+        fi
+
+        git branch -f "$branch" "$commit"
+        UPDATED_BRANCHES+=("$branch")
+        print_success "Set $branch"
+
+        if prompt_push "$branch"; then
+            print_info "Pushing $branch..."
+            git push --force-with-lease origin "$branch"
+            print_success "Pushed $branch"
+        fi
+
+        echo ""
+    done
+
+    echo ""
+    print_success "Stack sync complete!"
+    print_info "Updated ${#UPDATED_BRANCHES[@]} branches: ${UPDATED_BRANCHES[*]}"
+
+    if [[ "$NO_PUSH" == "true" ]]; then
+        echo ""
+        print_warning "Branches were updated locally. To push all:"
+        echo "  git push --force-with-lease origin ${UPDATED_BRANCHES[*]}"
+    fi
+
+    exit 0
+fi
+
+# ============================================================================
+# REBASE MODE: Rebase child branches onto current branch
+# ============================================================================
+
+# Find branches that need rebasing (those after current branch)
+BRANCHES_TO_REBASE=()
+for branch in "${STACK_BRANCHES[@]}"; do
+    if [[ "$branch" =~ ^${STACK_PREFIX}-([0-9]+)$ ]]; then
+        idx="${BASH_REMATCH[1]}"
+        if [[ $idx -gt $CURRENT_INDEX ]]; then
+            BRANCHES_TO_REBASE+=("$branch")
+        fi
+    fi
+done
+
+if [[ ${#BRANCHES_TO_REBASE[@]} -eq 0 ]]; then
+    print_warning "No branches to rebase (current branch is the last in the stack)"
+    exit 0
+fi
+
+print_info "Branches to rebase: ${BRANCHES_TO_REBASE[*]}"
+echo ""
+
+if [[ "$DRY_RUN" == "true" ]]; then
+    print_warning "DRY RUN MODE - No changes will be made"
+    echo ""
+    PREV_BRANCH="$CURRENT_BRANCH"
+    for branch in "${BRANCHES_TO_REBASE[@]}"; do
+        echo "  Would rebase $branch onto $PREV_BRANCH"
+        PREV_BRANCH="$branch"
+    done
+    exit 0
+fi
+
+# Rebase each branch
+PREV_BRANCH="$CURRENT_BRANCH"
+REBASED_BRANCHES=()
+
+for branch in "${BRANCHES_TO_REBASE[@]}"; do
+    print_info "Rebasing $branch onto $PREV_BRANCH..."
+
+    # Checkout the branch
+    git checkout "$branch"
+
+    # Rebase onto previous branch
+    if ! git rebase "$PREV_BRANCH"; then
+        echo ""
+        print_error "Rebase conflict! Please resolve the conflict, then run:"
+        print_info "  git rebase --continue"
+        print_info "  git-stack-rebase"
+        exit 1
+    fi
+
+    REBASED_BRANCHES+=("$branch")
+    print_success "Rebased $branch"
+
+    # Prompt for push
+    if prompt_push "$branch"; then
+        print_info "Pushing $branch..."
+        git push --force-with-lease origin "$branch"
+        print_success "Pushed $branch"
+    fi
+
+    PREV_BRANCH="$branch"
+    echo ""
+done
+
+# Return to original branch
+git checkout "$CURRENT_BRANCH"
+
+echo ""
+print_success "Stack rebase complete!"
+print_info "Rebased ${#REBASED_BRANCHES[@]} branches: ${REBASED_BRANCHES[*]}"
+
+if [[ "$NO_PUSH" == "true" ]]; then
+    echo ""
+    print_warning "Branches were rebased locally. To push all:"
+    echo "  git push --force-with-lease origin ${REBASED_BRANCHES[*]}"
+fi
